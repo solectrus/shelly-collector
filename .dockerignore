@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+.env.*
+.env
+compose.yml
+spec
+Rakefile
+Dockerfile

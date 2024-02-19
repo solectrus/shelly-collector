@@ -1,0 +1,32 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.178.83/rpc/Shelly.GetStatus
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.9.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '1203'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"ble":{},"cloud":{"connected":false},"em:0":{"id":0,"a_current":2.015,"a_voltage":233.3,"a_act_power":247.1,"a_aprt_power":469.9,"a_pf":0.68,"a_freq":50.0,"b_current":2.062,"b_voltage":234.2,"b_act_power":247.2,"b_aprt_power":482.9,"b_pf":0.67,"b_freq":50.0,"c_current":1.951,"c_voltage":233.2,"c_act_power":214.2,"c_aprt_power":454.6,"c_pf":0.65,"c_freq":50.0,"n_current":null,"total_current":6.029,"total_act_power":708.568,"total_aprt_power":1407.345,
+        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":872.55,"a_total_act_ret_energy":0.00,"b_total_act_energy":784.32,"b_total_act_ret_energy":0.00,"c_total_act_energy":690.91,"c_total_act_ret_energy":0.21,"total_act":2347.78,
+        "total_act_ret":0.22},"eth":{"ip":"192.168.178.83"},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"16:28","unixtime":1708356495,"uptime":4838,"ram_size":240752,"ram_free":130316,"fs_size":524288,"fs_free":192512,"cfg_rev":13,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"available_updates":{},"reset_reason":3},"temperature:0":{"id":
+        0,"tC":46.3, "tF":115.4},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0},"ws":{"connected":false}}'
+  recorded_at: Mon, 19 Feb 2024 15:28:15 GMT
+recorded_with: VCR 6.2.0

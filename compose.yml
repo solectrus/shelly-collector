@@ -1,0 +1,7 @@
+services:
+  shelly-collector:
+    image: ghcr.io/solectrus/shelly-collector:latest
+    env_file: .env
+    network_mode: host
+    privileged: true
+    restart: unless-stopped
