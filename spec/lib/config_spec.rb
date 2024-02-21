@@ -58,7 +58,7 @@ describe Config do
     it 'limits shelly_interval' do
       config = described_class.new(valid_options.merge(shelly_interval: 1))
 
-      expect(config.shelly_interval).to eq(5)
+      expect(config.shelly_interval).to eq(2)
     end
   end
 

@@ -61,7 +61,7 @@ Config =
     end
 
     def limit_interval
-      minimum = 5
+      minimum = 2
 
       self[:shelly_interval] = minimum if shelly_interval < minimum
     end
