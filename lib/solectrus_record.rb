@@ -14,6 +14,9 @@ class SolectrusRecord
   %i[
     temp
     power
+    power_a
+    power_b
+    power_c
     response_duration
   ].each do |method|
     define_method(method) do

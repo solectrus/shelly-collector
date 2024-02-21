@@ -41,6 +41,9 @@ class ShellyAdapter
     {
       temp:,
       power:,
+      power_a:,
+      power_b:,
+      power_c:,
       response_duration:,
     }
   end
@@ -84,5 +87,17 @@ class ShellyAdapter
 
   def power
     data.dig('em:0', 'total_act_power')
+  end
+
+  def power_a
+    data.dig('em:0', 'a_act_power')
+  end
+
+  def power_b
+    data.dig('em:0', 'b_act_power')
+  end
+
+  def power_c
+    data.dig('em:0', 'c_act_power')
   end
 end
