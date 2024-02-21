@@ -5,8 +5,7 @@ http_interactions:
     uri: http://<INFLUX_HOST>:8086/api/v2/write?bucket=<INFLUX_BUCKET>&org=<INFLUX_ORG>&precision=s
     body:
       encoding: UTF-8
-      string: my-shelly-measurement measure_time=1708356495i,power=708.568,response_duration=3i,temp=46.3
-        1708356495
+      string: my-shelly-measurement power=54.371,response_duration=46i,temp=48.0 1708490380
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -28,9 +27,9 @@ http_interactions:
       X-Influxdb-Version:
       - v2.7.5
       Date:
-      - Mon, 19 Feb 2024 15:34:25 GMT
+      - Wed, 21 Feb 2024 04:39:40 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Mon, 19 Feb 2024 15:34:25 GMT
+  recorded_at: Wed, 21 Feb 2024 04:39:40 GMT
 recorded_with: VCR 6.2.0

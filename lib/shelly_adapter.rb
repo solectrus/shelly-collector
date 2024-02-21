@@ -27,7 +27,7 @@ class ShellyAdapter
     @data = nil
     @raw_response = nil
 
-    SolectrusRecord.new(id, record_hash).tap do |record|
+    SolectrusRecord.new(id, measure_time, record_hash).tap do |record|
       logger.info success_message(record)
     end
   rescue StandardError => e
@@ -39,7 +39,6 @@ class ShellyAdapter
 
   def record_hash
     {
-      measure_time:,
       temp:,
       power:,
       response_duration:,
