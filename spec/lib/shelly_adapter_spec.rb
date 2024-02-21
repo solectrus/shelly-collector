@@ -34,8 +34,8 @@ describe ShellyAdapter do
       expect(solectrus_record.id).to eq(1)
     end
 
-    it 'has a valid measure_time' do
-      expect(solectrus_record.measure_time).to be > 1_700_000_000
+    it 'has a valid time' do
+      expect(solectrus_record.time).to be > 1_700_000_000
     end
 
     it 'handles errors' do

@@ -27,7 +27,7 @@ class ShellyAdapter
     @data = nil
     @raw_response = nil
 
-    SolectrusRecord.new(id, measure_time, record_hash).tap do |record|
+    SolectrusRecord.new(id:, time:, payload: record_hash).tap do |record|
       logger.info success_message(record)
     end
   rescue StandardError => e
@@ -60,7 +60,7 @@ class ShellyAdapter
 
   def success_message(record)
     "\nGot record ##{record.id} at " \
-      "#{Time.at(record.measure_time).localtime} " \
+      "#{Time.at(record.time).localtime} " \
       "within #{record.response_duration} ms, " \
       "Power #{record.power} W, " \
       "Temperature #{record.temp} °C"
@@ -74,7 +74,7 @@ class ShellyAdapter
     (raw_response.env[:duration] * 1000).round
   end
 
-  def measure_time
+  def time
     data.dig('sys', 'unixtime')
   end
 

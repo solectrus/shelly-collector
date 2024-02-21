@@ -20,7 +20,7 @@ class FluxWriter
   def point(record)
     InfluxDB2::Point.new(
       name: influx_measurement,
-      time: record.measure_time,
+      time: record.time,
       fields: record.to_hash,
     )
   end

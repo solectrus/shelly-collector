@@ -1,11 +1,11 @@
 class SolectrusRecord
-  def initialize(id, measure_time, payload)
+  def initialize(id:, time:, payload:)
     @id = id
-    @measure_time = measure_time
+    @time = time
     @payload = payload
   end
 
-  attr_reader :id, :measure_time
+  attr_reader :id, :time
 
   def to_hash
     @payload
