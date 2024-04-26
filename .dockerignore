@@ -7,8 +7,11 @@
 .gitignore
 .rspec
 .rubocop.yml
+.ruby-lsp
 .vscode
+**/.DS_Store
 compose.yml
+coverage
 Dockerfile
 Guardfile
 Rakefile
