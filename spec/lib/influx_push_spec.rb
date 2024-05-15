@@ -14,7 +14,7 @@ describe InfluxPush do
     config.logger = logger
   end
 
-  describe '#run', vcr: 'shelly' do
+  describe '#run', vcr: 'shelly-pro-3em' do
     context 'with a single record' do
       before { fill_queue }
 

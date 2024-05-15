@@ -45,7 +45,7 @@ class ShellyAdapter
       power_b:,
       power_c:,
       response_duration:,
-    }
+    }.compact
   end
 
   def raw_response
@@ -82,11 +82,11 @@ class ShellyAdapter
   end
 
   def temp
-    data.dig('temperature:0', 'tC')
+    data.dig('temperature:0', 'tC') || data.dig('switch:0', 'temperature', 'tC')
   end
 
   def power
-    data.dig('em:0', 'total_act_power')
+    data.dig('em:0', 'total_act_power') || data.dig('switch:0', 'apower')
   end
 
   def power_a

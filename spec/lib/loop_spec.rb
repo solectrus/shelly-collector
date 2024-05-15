@@ -10,7 +10,7 @@ describe Loop do
   end
 
   describe '#start' do
-    it 'outputs the correct information when started', vcr: 'shelly' do
+    it 'outputs the correct information when started', vcr: 'shelly-pro-3em' do
       VCR.use_cassette('influx-success') do
         described_class.start(config:, max_count: 2)
       end
