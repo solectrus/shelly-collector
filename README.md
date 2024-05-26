@@ -5,13 +5,16 @@
 
 # Shelly collector
 
-Collects power consumption data from Shelly and transfers it to InfluxDB 2
+Collects electricity consumption data from Shelly energy meters and transfers it to InfluxDB 2
 
-Tested with Shelly Pro 3EM
+Tested with:
+
+- Shelly Pro 3EM
+- Shelly Plus Plug S
 
 ## Requirements
 
-Linux machine with Docker installed
+Linux machine with Docker installed, InfluxDB 2 database
 
 ## Getting started
 

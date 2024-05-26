@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://shelly-plug-s/rpc/Shelly.GetStatus
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.9.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '689'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"ble":{},"cloud":{"connected":true},"mqtt":{"connected":true},"plugs_ui":{},"switch:0":{"id":0,
+        "source":"init", "output":true, "apower":4.1, "voltage":234.3, "current":0.071,
+        "aenergy":{"total":4.999,"by_minute":[67.623,67.623,67.623],"minute_ts":1715755620},"temperature":{"tC":43.3,
+        "tF":109.9}},"sys":{"mac":"FCB467272FA0","restart_required":false,"time":"08:47","unixtime":1715755636,"uptime":4718,"ram_size":246732,"ram_free":142868,"fs_size":458752,"fs_free":139264,"cfg_rev":25,"kvs_rev":0,"schedule_rev":1,"webhook_rev":0,"available_updates":{},"reset_reason":3},"wifi":{"sta_ip":"192.168.178.88","status":"got
+        ip","ssid":"FRITZ!Box 4060 RX","rssi":-64},"ws":{"connected":false}}'
+  recorded_at: Wed, 15 May 2024 06:47:17 GMT
+recorded_with: VCR 6.2.0
