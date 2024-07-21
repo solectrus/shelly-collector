@@ -24,7 +24,7 @@ describe ShellyPull do
     end
 
     context 'when it fails' do
-      it 'raises Shelly::Error and does not increment queue length' do
+      it 'raises an exception and does not increment queue length' do
         allow(queue).to receive(:<<).and_raise(StandardError)
 
         expect { shelly_pull.next }.to raise_error(StandardError)

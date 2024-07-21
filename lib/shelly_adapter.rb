@@ -51,7 +51,7 @@ class ShellyAdapter
   def raw_response
     @raw_response ||= begin
       response = connection.get '/rpc/Shelly.GetStatus'
-      raise Error, response.status unless response.success?
+      raise StandardError, response.status unless response.success?
 
       response
     end
