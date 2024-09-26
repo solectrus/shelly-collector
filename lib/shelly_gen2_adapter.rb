@@ -3,14 +3,14 @@ require 'forwardable'
 require 'faraday'
 require 'faraday-request-timer'
 
-class ShellyAdapter
+class ShellyGen2Adapter
   extend Forwardable
   def_delegators :config, :logger
 
   def initialize(config:)
     @config = config
 
-    logger.info "Pulling from your Shelly at #{config.shelly_url} every #{config.shelly_interval} seconds"
+    logger.info "Pulling from your Shelly (Gen2) at #{config.shelly_url}#{path} every #{config.shelly_interval} seconds"
   end
 
   attr_reader :config
@@ -48,9 +48,13 @@ class ShellyAdapter
     }.compact
   end
 
+  def path
+    '/rpc/Shelly.GetStatus'
+  end
+
   def raw_response
     @raw_response ||= begin
-      response = connection.get '/rpc/Shelly.GetStatus'
+      response = connection.get(path)
       raise StandardError, response.status unless response.success?
 
       response

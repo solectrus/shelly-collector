@@ -7,10 +7,15 @@
 
 Collects electricity consumption data from Shelly energy meters and transfers it to InfluxDB 2
 
-Tested with:
+Tested with Shelly devices generation 2:
 
 - Shelly Pro 3EM
 - Shelly Plus Plug S
+
+**Untested** with Shelly devices generation 1, like this:
+
+- Shelly 3EM
+- Shellly Plug S
 
 ## Requirements
 

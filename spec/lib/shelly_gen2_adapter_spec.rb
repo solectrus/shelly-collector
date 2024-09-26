@@ -1,7 +1,7 @@
-require 'shelly_adapter'
+require 'shelly_gen2_adapter'
 require 'config'
 
-describe ShellyAdapter do
+describe ShellyGen2Adapter do
   subject(:adapter) do
     described_class.new(config:)
   end
@@ -17,7 +17,7 @@ describe ShellyAdapter do
   describe '#initialize' do
     before { adapter }
 
-    it { expect(logger.info_messages).to include('Pulling from your Shelly at http://192.168.178.83 every 5 seconds') }
+    it { expect(logger.info_messages).to include('Pulling from your Shelly (Gen2) at http://192.168.178.83/rpc/Shelly.GetStatus every 5 seconds') }
   end
 
   describe '#connection' do
@@ -40,6 +40,12 @@ describe ShellyAdapter do
     it 'has values' do
       expect(solectrus_record.power).to be > 0
       expect(solectrus_record.temp).to be > 0
+    end
+
+    it 'has phase power' do
+      expect(solectrus_record.power_a).to be >= 0
+      expect(solectrus_record.power_b).to be >= 0
+      expect(solectrus_record.power_c).to be >= 0
     end
 
     it 'has a valid time' do
