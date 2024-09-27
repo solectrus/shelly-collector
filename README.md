@@ -14,8 +14,9 @@ Tested with Shelly devices generation 2:
 
 **Untested** with Shelly devices generation 1, like this:
 
+- Shelly EM
 - Shelly 3EM
-- Shellly Plug S
+- Shelly Plug S
 
 ## Requirements
 

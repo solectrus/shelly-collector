@@ -84,7 +84,7 @@ class ShellyGen1Adapter
   end
 
   def power
-    data['total_power']
+    data['total_power'] || (power_a.to_f + power_b.to_f + power_c.to_f)
   end
 
   def power_a

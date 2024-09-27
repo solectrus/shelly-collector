@@ -1,0 +1,27 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://shelly-em/status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '1258'
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"wifi_sta":{"connected":true,"ssid":"XXXXXXXXXXXXXXXXXX","ip":"XXXXXXXXXXXXXXXXXX","rssi":-37},"cloud":{"enabled":false,"connected":false},"mqtt":{"connected":true},"time":"09:39","unixtime":1727422761,"serial":21128,"has_update":false,"mac":"XXXXXXXXXXXXXXXXXX","cfg_changed_cnt":0,"actions_stats":{"skipped":0},"relays":[{"ison":false,"has_timer":false,"timer_started":0,"timer_duration":0,"timer_remaining":0,"overpower":false,"is_valid":true,"source":"input"}],"emeters":[{"power":3.63,"reactive":0,"pf":0,"voltage":226.02,"is_valid":true,"total":1724256.1,"total_returned":785.7},{"power":6.45,"reactive":-13.82,"pf":-0.42,"voltage":226.02,"is_valid":true,"total":510346.8,"total_returned":194.1}],"update":{"status":"idle","has_update":false,"new_version":"20230913-114150\/v1.14.0-gcb84623","old_version":"20230913-114150\/v1.14.0-gcb84623","beta_version":"20231107-164916\/v1.14.1-rc1-g0617c15"},"ram_total":51064,"ram_free":34936,"fs_size":233681,"fs_free":150349,"uptime":5071906}'
+  recorded_at: Thu, 26 Sep 2024 08:52:31 GMT
+recorded_with: VCR 6.3.1
