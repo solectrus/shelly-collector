@@ -69,7 +69,7 @@ class ShellyGen2Adapter
     "\nGot record ##{record.id} at " \
       "#{Time.at(record.time).localtime} " \
       "within #{record.response_duration} ms, " \
-      "Power #{record.power} W, " \
+      "Power #{record.power.round(1)} W, " \
       "Temperature #{record.temp} °C"
   end
 
