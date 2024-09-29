@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.10.1
+      - Faraday v2.12.0
   response:
     status:
       code: 200
@@ -17,16 +17,16 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '1254'
+      - '1258'
       server:
       - ShellyHTTP/1.0.0
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"em:0":{"id":0,"a_current":0.618,"a_voltage":235.0,"a_act_power":13.7,"a_aprt_power":145.1,"a_pf":0.09,"a_freq":50.0,"b_current":0.655,"b_voltage":236.2,"b_act_power":4.8,"b_aprt_power":154.8,"b_pf":0.03,"b_freq":50.0,"c_current":0.622,"c_voltage":235.4,"c_act_power":0.0,"c_aprt_power":146.4,"c_pf":0.00,"c_freq":50.0,"n_current":null,"total_current":1.895,"total_act_power":18.505,"total_aprt_power":446.219,
-        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":336829.73,"a_total_act_ret_energy":0.42,"b_total_act_energy":273976.01,"b_total_act_ret_energy":0.01,"c_total_act_energy":228855.72,"c_total_act_ret_energy":2445.70,"total_act":839661.46,
-        "total_act_ret":2446.13},"eth":{"ip":"192.168.178.83"},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"07:30","unixtime":1724218205,"uptime":449,"ram_size":247484,"ram_free":130448,"fs_size":524288,"fs_free":180224,"cfg_rev":36,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"available_updates":{},"reset_reason":3},"temperature:0":{"id":
-        0,"tC":47.0, "tF":116.7},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0},"ws":{"connected":false}}'
-  recorded_at: Wed, 21 Aug 2024 05:30:06 GMT
+      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"em:0":{"id":0,"a_current":0.616,"a_voltage":233.7,"a_act_power":13.6,"a_aprt_power":144.0,"a_pf":0.09,"a_freq":50.0,"b_current":0.651,"b_voltage":234.8,"b_act_power":4.9,"b_aprt_power":152.7,"b_pf":0.03,"b_freq":50.0,"c_current":0.620,"c_voltage":233.9,"c_act_power":0.0,"c_aprt_power":144.8,"c_pf":0.00,"c_freq":50.0,"n_current":null,"total_current":1.887,"total_act_power":18.471,"total_aprt_power":441.560,
+        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":374452.09,"a_total_act_ret_energy":0.53,"b_total_act_energy":300556.69,"b_total_act_ret_energy":0.01,"c_total_act_energy":249501.26,"c_total_act_ret_energy":3103.02,"total_act":924510.05,
+        "total_act_ret":3103.55},"eth":{"ip":"192.168.178.83"},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"10:52","unixtime":1727340752,"uptime":2561415,"ram_size":247504,"ram_free":130624,"fs_size":524288,"fs_free":180224,"cfg_rev":37,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"available_updates":{},"reset_reason":3},"temperature:0":{"id":
+        0,"tC":46.2, "tF":115.1},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0},"ws":{"connected":false}}'
+  recorded_at: Thu, 26 Sep 2024 08:52:31 GMT
 recorded_with: VCR 6.3.1

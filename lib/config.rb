@@ -1,9 +1,11 @@
-require 'shelly_adapter'
+require 'shelly_gen1_adapter'
+require 'shelly_gen2_adapter'
 require 'blank'
 require 'null_logger'
 
 KEYS = %i[
   shelly_host
+  shelly_gen
   shelly_interval
   influx_schema
   influx_host
@@ -47,7 +49,7 @@ Config =
       end
 
       # Integer
-      %i[shelly_interval influx_port].each do |key|
+      %i[shelly_interval influx_port shelly_gen].each do |key|
         self[key] = self[key]&.to_i
       end
     end
@@ -58,6 +60,7 @@ Config =
       end
 
       self[:shelly_interval] ||= 5
+      self[:shelly_gen] ||= 2
     end
 
     def limit_interval
@@ -69,6 +72,7 @@ Config =
     def validate!
       validate_influx_settings!
       validate_interval!(shelly_interval)
+      validate_gen!(shelly_gen)
     end
 
     def influx_url
@@ -80,8 +84,8 @@ Config =
     end
 
     def adapter
-      @adapter ||=
-        ShellyAdapter.new(config: self)
+      # Instance of ShellyGen1Adapter or ShellyGen2Adapter
+      @adapter ||= Object.const_get("ShellyGen#{shelly_gen}Adapter").new(config: self)
     end
 
     attr_writer :logger
@@ -94,6 +98,10 @@ Config =
 
     def validate_interval!(interval)
       (interval.is_a?(Integer) && interval.positive?) || throw("SHELLY_INTERVAL is invalid: #{interval}")
+    end
+
+    def validate_gen!(gen)
+      [1, 2].include?(gen) || throw("SHELLY_GEN is invalid: #{gen}")
     end
 
     def validate_influx_settings!
@@ -122,6 +130,7 @@ Config =
       new(
         {
           shelly_host: ENV.fetch('SHELLY_HOST', nil),
+          shelly_gen: ENV.fetch('SHELLY_GEN', nil),
           shelly_interval: ENV.fetch('SHELLY_INTERVAL', nil),
           influx_host: ENV.fetch('INFLUX_HOST'),
           influx_schema: ENV.fetch('INFLUX_SCHEMA', nil),

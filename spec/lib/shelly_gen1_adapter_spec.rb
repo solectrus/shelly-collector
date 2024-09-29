@@ -1,13 +1,13 @@
-require 'shelly_adapter'
+require 'shelly_gen1_adapter'
 require 'config'
 
-describe ShellyAdapter do
+describe ShellyGen1Adapter do
   subject(:adapter) do
     described_class.new(config:)
   end
 
-  let(:config) { Config.from_env(shelly_host:, shelly_interval: 5) }
-  let(:shelly_host) { '192.168.178.83' }
+  let(:config) { Config.from_env(shelly_host:, shelly_gen: 1, shelly_interval: 5) }
+  let(:shelly_host) { 'shelly-3em' }
   let(:logger) { MemoryLogger.new }
 
   before do
@@ -17,7 +17,7 @@ describe ShellyAdapter do
   describe '#initialize' do
     before { adapter }
 
-    it { expect(logger.info_messages).to include('Pulling from your Shelly at http://192.168.178.83 every 5 seconds') }
+    it { expect(logger.info_messages).to include('Pulling from your Shelly (Gen1) at http://shelly-3em/status every 5 seconds') }
   end
 
   describe '#connection' do
@@ -26,10 +26,10 @@ describe ShellyAdapter do
     it { is_expected.to be_a(Faraday::Connection) }
   end
 
-  describe '#solectrus_record', vcr: 'shelly-pro-3em' do
+  describe '#solectrus_record', vcr: 'shelly-3em' do # Manually created cassette!
     subject(:solectrus_record) { adapter.solectrus_record }
 
-    let(:shelly_host) { 'shelly-pro-3em' }
+    let(:shelly_host) { 'shelly-3em' }
 
     it { is_expected.to be_a(SolectrusRecord) }
 
@@ -37,9 +37,14 @@ describe ShellyAdapter do
       expect(solectrus_record.id).to eq(1)
     end
 
-    it 'has values' do
+    it 'has total power' do
       expect(solectrus_record.power).to be > 0
-      expect(solectrus_record.temp).to be > 0
+    end
+
+    it 'has phase power' do
+      expect(solectrus_record.power_a).to be >= 0
+      expect(solectrus_record.power_b).to be >= 0
+      expect(solectrus_record.power_c).to be >= 0
     end
 
     it 'has a valid time' do
@@ -54,10 +59,10 @@ describe ShellyAdapter do
     end
   end
 
-  describe '#solectrus_record', vcr: 'shelly-plug-s' do
+  describe '#solectrus_record', vcr: 'shelly-em' do # Manually created cassette!
     subject(:solectrus_record) { adapter.solectrus_record }
 
-    let(:shelly_host) { 'shelly-plug-s' }
+    let(:shelly_host) { 'shelly-em' }
 
     it { is_expected.to be_a(SolectrusRecord) }
 
@@ -65,9 +70,14 @@ describe ShellyAdapter do
       expect(solectrus_record.id).to eq(1)
     end
 
-    it 'has values' do
+    it 'has total power' do
       expect(solectrus_record.power).to be > 0
-      expect(solectrus_record.temp).to be > 0
+    end
+
+    it 'has phase power' do
+      expect(solectrus_record.power_a).to be >= 0
+      expect(solectrus_record.power_b).to be >= 0
+      expect(solectrus_record.power_c).to be_nil
     end
 
     it 'has a valid time' do

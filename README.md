@@ -3,14 +3,20 @@
 [![wakatime](https://wakatime.com/badge/user/697af4f5-617a-446d-ba58-407e7f3e0243/project/018dc198-44e2-4b00-bb01-a7b07d445b01.svg)](https://wakatime.com/badge/user/697af4f5-617a-446d-ba58-407e7f3e0243/project/018dc198-44e2-4b00-bb01-a7b07d445b01)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2004a93d6d9dbeb908c5/test_coverage)](https://codeclimate.com/github/solectrus/shelly-collector/test_coverage)
 
-# Shelly collector
+# Shelly Collector
 
 Collects electricity consumption data from Shelly energy meters and transfers it to InfluxDB 2
 
-Tested with:
+Tested with these Shelly devices:
 
 - Shelly Pro 3EM
+- Shelly 3EM
 - Shelly Plus Plug S
+- Shelly EM
+
+Untested, but should work with these devices:
+
+- Shelly Plug S
 
 ## Requirements
 
@@ -31,6 +37,17 @@ Linux machine with Docker installed, InfluxDB 2 database
    ```
 
 The Docker image support multiple platforms: `linux/amd64`, `linux/arm64`, `linux/arm/v7`
+
+## Output
+
+The Shelly Collector sends the following data to InfluxDB (stored as fields in the given measurement):
+
+- `power_a` (in W, if available)
+- `power_b` (in W, if available)
+- `power_c` (in W, if available)
+- `power` (in W, stores `power_a + power_b + power_c` if not available)
+- `response_duration` (in milliseconds)
+- `temp` (in °C, if available)
 
 ## License
 
