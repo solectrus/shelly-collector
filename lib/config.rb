@@ -17,6 +17,8 @@ KEYS = %i[
 ].freeze
 
 DEFAULTS = {
+  shelly_gen: 2,
+  shelly_interval: 5,
   influx_schema: :http,
   influx_port: 8086,
   influx_measurement: 'Consumer',
@@ -58,9 +60,6 @@ Config =
       DEFAULTS.each do |key, value|
         self[key] ||= value
       end
-
-      self[:shelly_interval] ||= 5
-      self[:shelly_gen] ||= 2
     end
 
     def limit_interval
