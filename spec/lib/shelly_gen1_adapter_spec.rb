@@ -91,4 +91,37 @@ describe ShellyGen1Adapter do
       expect(logger.error_messages).to include(/Error getting data from Shelly at/)
     end
   end
+
+  describe '#solectrus_record', vcr: 'shelly-plug-s-gen1' do # Manually created cassette!
+    subject(:solectrus_record) { adapter.solectrus_record }
+
+    let(:shelly_host) { 'shelly-plug-s-gen1' }
+
+    it { is_expected.to be_a(SolectrusRecord) }
+
+    it 'has an automatic id' do
+      expect(solectrus_record.id).to eq(1)
+    end
+
+    it 'has total power' do
+      expect(solectrus_record.power).to be > 0
+    end
+
+    it 'has phase power' do
+      expect(solectrus_record.power_a).to be >= 0
+      expect(solectrus_record.power_b).to be_nil
+      expect(solectrus_record.power_c).to be_nil
+    end
+
+    it 'has a valid time' do
+      expect(solectrus_record.time).to be > 1_700_000_000
+    end
+
+    it 'handles errors' do
+      allow(Faraday::Adapter).to receive(:new).and_raise(StandardError)
+
+      solectrus_record
+      expect(logger.error_messages).to include(/Error getting data from Shelly at/)
+    end
+  end
 end

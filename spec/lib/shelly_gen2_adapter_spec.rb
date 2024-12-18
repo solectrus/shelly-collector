@@ -60,10 +60,10 @@ describe ShellyGen2Adapter do
     end
   end
 
-  describe '#solectrus_record', vcr: 'shelly-plug-s' do
+  describe '#solectrus_record', vcr: 'shelly-plug-s-gen2' do
     subject(:solectrus_record) { adapter.solectrus_record }
 
-    let(:shelly_host) { 'shelly-plug-s' }
+    let(:shelly_host) { 'shelly-plug-s-gen2' }
 
     it { is_expected.to be_a(SolectrusRecord) }
 
