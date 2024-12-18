@@ -88,14 +88,14 @@ class ShellyGen1Adapter
   end
 
   def power_a
-    data.dig('emeters', 0, 'power')
+    data.dig('emeters', 0, 'power') || data.dig('meters', 0, 'power')
   end
 
   def power_b
-    data.dig('emeters', 1, 'power')
+    data.dig('emeters', 1, 'power') || data.dig('meters', 1, 'power')
   end
 
   def power_c
-    data.dig('emeters', 2, 'power')
+    data.dig('emeters', 2, 'power') || data.dig('meters', 2, 'power')
   end
 end

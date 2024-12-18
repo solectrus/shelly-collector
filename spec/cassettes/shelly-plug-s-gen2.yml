@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://shelly-plug-s/rpc/Shelly.GetStatus
+    uri: http://shelly-plug-s-gen2/rpc/Shelly.GetStatus
     body:
       encoding: US-ASCII
       string: ''

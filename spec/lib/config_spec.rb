@@ -7,6 +7,7 @@ describe Config do
       influx_token: 'this.is.just.an.example',
       influx_org: 'solectrus',
       influx_bucket: 'Consumer',
+      influx_mode: :essential,
     }
   end
 
@@ -49,6 +50,12 @@ describe Config do
       expect do
         described_class.new(valid_options.merge(influx_token: nil))
       end.to raise_error(Exception, /INFLUX_TOKEN is missing/)
+    end
+
+    it 'raises an error for invalid INFLUX_MODE' do
+      expect do
+        described_class.new(valid_options.merge(influx_mode: 'foo'))
+      end.to raise_error(Exception, /MODE is invalid/)
     end
 
     it 'initializes with valid options' do
@@ -137,6 +144,10 @@ describe Config do
 
     it 'returns correct influx_measurement' do
       expect(config.influx_measurement).to eq('Consumer')
+    end
+
+    it 'returns correct influx_mode' do
+      expect(config.influx_mode).to eq(:essential)
     end
   end
 end

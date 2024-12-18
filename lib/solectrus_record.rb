@@ -23,4 +23,8 @@ class SolectrusRecord
       @payload[method]
     end
   end
+
+  def power?
+    !power.round.zero?
+  end
 end

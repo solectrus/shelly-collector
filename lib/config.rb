@@ -14,12 +14,16 @@ KEYS = %i[
   influx_org
   influx_bucket
   influx_measurement
+  influx_mode
 ].freeze
 
 DEFAULTS = {
+  shelly_gen: 2,
+  shelly_interval: 5,
   influx_schema: :http,
   influx_port: 8086,
   influx_measurement: 'Consumer',
+  influx_mode: :default,
 }.freeze
 
 Config =
@@ -58,9 +62,6 @@ Config =
       DEFAULTS.each do |key, value|
         self[key] ||= value
       end
-
-      self[:shelly_interval] ||= 5
-      self[:shelly_gen] ||= 2
     end
 
     def limit_interval
@@ -118,12 +119,17 @@ Config =
       end
 
       validate_url!(influx_url)
+      validate_mode!(influx_mode)
     end
 
     def validate_url!(url)
       uri = URI.parse(url)
 
       (uri.is_a?(URI::HTTP) && uri.host.present?) || throw("URL is invalid: #{url}")
+    end
+
+    def validate_mode!(mode)
+      %i[default essential].include?(mode) || throw("INFLUX_MODE is invalid: #{mode}")
     end
 
     def self.from_env(options = {})
@@ -139,6 +145,7 @@ Config =
           influx_org: ENV.fetch('INFLUX_ORG'),
           influx_bucket: ENV.fetch('INFLUX_BUCKET', nil),
           influx_measurement: ENV.fetch('INFLUX_MEASUREMENT', nil),
+          influx_mode: ENV.fetch('INFLUX_MODE', nil)&.to_sym,
         }.merge(options),
       )
     end
