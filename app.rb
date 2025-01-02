@@ -18,7 +18,7 @@ logger.info 'Shelly collector for SOLECTRUS, ' \
        "Version #{ENV.fetch('VERSION', '<unknown>')}, " \
        "built at #{ENV.fetch('BUILDTIME', '<unknown>')}"
 logger.info 'https://github.com/solectrus/shelly-collector'
-logger.info 'Copyright (c) 2024 Georg Ledermann, released under the MIT License'
+logger.info 'Copyright (c) 2024-2025 Georg Ledermann, released under the MIT License'
 logger.info "\n"
 
 config = Config.from_env
