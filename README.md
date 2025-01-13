@@ -51,4 +51,4 @@ The Shelly Collector sends the following data to InfluxDB (stored as fields in t
 
 ## License
 
-Copyright (c) 2024 Georg Ledermann, released under the MIT License
+Copyright (c) 2024-2025 Georg Ledermann, released under the MIT License
