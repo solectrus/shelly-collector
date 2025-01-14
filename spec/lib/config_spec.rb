@@ -113,6 +113,14 @@ describe Config do
         expect(config.adapter).to be_a(ShellyGen2Adapter)
       end
     end
+
+    context 'when shelly_gen is 3' do
+      let(:shelly_gen) { 3 }
+
+      it 'returns adapter' do
+        expect(config.adapter).to be_a(ShellyGen3Adapter)
+      end
+    end
   end
 
   describe 'influx methods' do

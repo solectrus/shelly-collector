@@ -1,5 +1,6 @@
 require 'shelly_gen1_adapter'
 require 'shelly_gen2_adapter'
+require 'shelly_gen3_adapter'
 require 'blank'
 require 'null_logger'
 
@@ -85,7 +86,7 @@ Config =
     end
 
     def adapter
-      # Instance of ShellyGen1Adapter or ShellyGen2Adapter
+      # Instance of ShellyGen1Adapter, ShellyGen2Adapter, or ShellyGen3Adapter
       @adapter ||= Object.const_get("ShellyGen#{shelly_gen}Adapter").new(config: self)
     end
 
@@ -102,7 +103,7 @@ Config =
     end
 
     def validate_gen!(gen)
-      [1, 2].include?(gen) || throw("SHELLY_GEN is invalid: #{gen}")
+      [1, 2, 3].include?(gen) || throw("SHELLY_GEN is invalid: #{gen}")
     end
 
     def validate_influx_settings!
