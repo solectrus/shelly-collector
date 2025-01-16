@@ -67,60 +67,6 @@ describe Config do
 
       expect(config.shelly_interval).to eq(2)
     end
-
-    it 'raises an error for invalid SHELLY_GEN' do
-      expect do
-        described_class.new(valid_options.merge(shelly_gen: '42'))
-      end.to raise_error(Exception, /SHELLY_GEN is invalid/)
-    end
-  end
-
-  describe 'shelly methods' do
-    subject(:config) { described_class.new(valid_options.merge(shelly_gen:)) }
-
-    context 'when no shelly_gen is given' do
-      let(:shelly_gen) { nil }
-
-      it 'returns correct shelly_host' do
-        expect(config.shelly_host).to eq('1.2.3.4')
-      end
-
-      it 'returns default shelly_interval' do
-        expect(config.shelly_interval).to eq(5)
-      end
-
-      it 'returns default shelly_gen' do
-        expect(config.shelly_gen).to eq(2)
-      end
-
-      it 'returns default adapter' do
-        expect(config.adapter).to be_a(ShellyGen2Adapter)
-      end
-    end
-
-    context 'when shelly_gen is 1' do
-      let(:shelly_gen) { 1 }
-
-      it 'returns adapter' do
-        expect(config.adapter).to be_a(ShellyGen1Adapter)
-      end
-    end
-
-    context 'when shelly_gen is 2' do
-      let(:shelly_gen) { 2 }
-
-      it 'returns adapter' do
-        expect(config.adapter).to be_a(ShellyGen2Adapter)
-      end
-    end
-
-    context 'when shelly_gen is 3' do
-      let(:shelly_gen) { 3 }
-
-      it 'returns adapter' do
-        expect(config.adapter).to be_a(ShellyGen3Adapter)
-      end
-    end
   end
 
   describe 'influx methods' do

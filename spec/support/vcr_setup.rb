@@ -11,6 +11,9 @@ VCR.configure do |config|
     INFLUX_TOKEN
     INFLUX_ORG
     INFLUX_BUCKET
+    SHELLY_CLOUD_SERVER
+    SHELLY_DEVICE_ID
+    SHELLY_AUTH_KEY
   ]
   sensitive_environment_variables.each do |key_name|
     config.filter_sensitive_data("<#{key_name}>") { ENV.fetch(key_name, nil) }

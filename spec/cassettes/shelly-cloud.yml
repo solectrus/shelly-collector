@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<SHELLY_CLOUD_SERVER>/device/status?auth_key=<SHELLY_AUTH_KEY>&id=<SHELLY_DEVICE_ID>"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx/1.18.0 (Ubuntu)
+      date:
+      - Wed, 15 Jan 2025 14:38:31 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '1433'
+      connection:
+      - keep-alive
+      x-powered-by:
+      - Express
+      access-control-allow-origin:
+      - "*"
+      etag:
+      - W/"599-r6X+mEJWKfIezKoaY0bXniO4kKY"
+    body:
+      encoding: UTF-8
+      string: '{"isok":true,"data":{"online":true,"device_status":{"_updated":"2025-01-15
+        14:38:22","id":"<SHELLY_DEVICE_ID>","temperature:0":{"id":0,"tC":47.5,"tF":117.6},"ts":1736951888.29,"bthome":{"errors":["bluetooth_disabled"]},"eth":{"ip":"192.168.178.83"},"ws":{"connected":false},"code":"SPEM-003CEBEU","mqtt":{"connected":false},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0},"serial":70465,"ble":{},"em:0":{"id":0,"a_act_power":232.1,"a_aprt_power":389.5,"a_current":1.661,"a_freq":50,"a_pf":0.6,"a_voltage":234.5,"b_act_power":153.6,"b_aprt_power":353.2,"b_current":1.503,"b_freq":50,"b_pf":0.43,"b_voltage":235.1,"c_act_power":124.3,"c_aprt_power":337.4,"c_current":1.438,"c_freq":50,"c_pf":0.37,"c_voltage":234.9,"total_act_power":509.977,"total_aprt_power":1080.095,"total_current":4.602,"user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":804960.02,"a_total_act_ret_energy":0.57,"b_total_act_energy":688094.52,"b_total_act_ret_energy":0.01,"c_total_act_energy":574760.91,"c_total_act_ret_energy":3856.74,"total_act":2067815.44,"total_act_ret":3857.31},"sys":{"available_updates":{"beta":{"version":"1.5.0-beta1"}},"mac":"34987A45A6A0","restart_required":false,"time":"14:16","unixtime":1736169379,"uptime":6941177,"ram_size":247552,"ram_free":129988,"fs_size":524288,"fs_free":180224,"cfg_rev":38,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"reset_reason":3},"modbus":{},"cloud":{"connected":true}}}}'
+  recorded_at: Wed, 15 Jan 2025 14:38:31 GMT
+recorded_with: VCR 6.3.1
