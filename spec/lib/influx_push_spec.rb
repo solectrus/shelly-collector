@@ -3,7 +3,7 @@ require 'shelly_pull'
 require 'config'
 
 describe InfluxPush do
-  let(:config) { Config.from_env(shelly_interval: 5) }
+  let(:config) { Config.from_env(shelly_cloud_server: nil) }
   let(:queue) { Queue.new }
   let!(:shelly_pull) do
     ShellyPull.new(config:, queue:)

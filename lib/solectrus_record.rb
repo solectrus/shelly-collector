@@ -1,11 +1,12 @@
 class SolectrusRecord
-  def initialize(id:, time:, payload:)
+  def initialize(id:, time:, payload:, response_duration: nil)
     @id = id
     @time = time
     @payload = payload
+    @response_duration = response_duration
   end
 
-  attr_reader :id, :time
+  attr_reader :id, :time, :response_duration
 
   def to_hash
     @payload
@@ -17,7 +18,6 @@ class SolectrusRecord
     power_a
     power_b
     power_c
-    response_duration
   ].each do |method|
     define_method(method) do
       @payload[method]

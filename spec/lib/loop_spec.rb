@@ -2,7 +2,7 @@ require 'loop'
 require 'config'
 
 describe Loop do
-  let(:config) { Config.from_env(shelly_interval: 5) }
+  let(:config) { Config.from_env(shelly_cloud_server: nil, shelly_host: 'shelly-pro-3em') }
   let(:logger) { MemoryLogger.new }
 
   before do
@@ -19,7 +19,7 @@ describe Loop do
     end
 
     it 'handles Interrupt' do
-      allow(config.adapter).to receive(:data).and_raise(SystemExit)
+      allow(config.adapter).to receive(:raw_response).and_raise(SystemExit)
 
       described_class.start(config:)
 
@@ -27,7 +27,7 @@ describe Loop do
     end
 
     it 'handles errors' do
-      allow(config.adapter).to receive(:data).and_raise(StandardError)
+      allow(config.adapter).to receive(:raw_response).and_raise(StandardError)
 
       described_class.start(config:, max_count: 1)
 
