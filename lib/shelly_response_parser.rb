@@ -7,7 +7,7 @@ class ShellyResponseParser
   attr_reader :data
 
   def solectrus_record(id: 1, response_duration: nil)
-    SolectrusRecord.new(id:, response_duration:, time:, payload: record_hash)
+    SolectrusRecord.new(id:, mac:, time:, payload: record_hash.merge(response_duration:))
   end
 
   private
@@ -20,6 +20,13 @@ class ShellyResponseParser
       power_b:,
       power_c:,
     }.compact
+  end
+
+  def mac
+    data.dig('sys', 'mac') ||
+      data['mac'] ||
+      device_status&.dig('mac') ||
+      device_status&.dig('sys', 'mac')
   end
 
   def time

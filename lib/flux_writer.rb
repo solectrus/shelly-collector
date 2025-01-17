@@ -22,6 +22,8 @@ class FluxWriter
       name: influx_measurement,
       time: record.time,
       fields: record.to_hash,
+      # TODO: Add tags, so just ONE Measurement would be enough
+      # tags: { mac: record.mac }.compact,
     )
   end
 

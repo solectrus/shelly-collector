@@ -1,16 +1,13 @@
 class SolectrusRecord
-  def initialize(id:, time:, payload:, response_duration: nil)
+  def initialize(id:, time:, payload:, mac: nil, response_duration: nil)
     @id = id
     @time = time
     @payload = payload
+    @mac = mac
     @response_duration = response_duration
   end
 
-  attr_reader :id, :time, :response_duration
-
-  def to_hash
-    @payload
-  end
+  attr_reader :id, :time, :mac
 
   %i[
     temp
@@ -18,10 +15,17 @@ class SolectrusRecord
     power_a
     power_b
     power_c
+    response_duration
   ].each do |method|
     define_method(method) do
       @payload[method]
     end
+  end
+
+  def to_hash
+    @payload.merge(
+      response_duration:,
+    ).compact
   end
 
   def power?

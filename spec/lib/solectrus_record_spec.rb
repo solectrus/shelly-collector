@@ -1,7 +1,7 @@
 require 'solectrus_record'
 
 describe SolectrusRecord do
-  subject(:record) { described_class.new(id: 1, response_duration: 20.5, time: Time.now, payload:) }
+  subject(:record) { described_class.new(id: 1, mac: 'deadbeef0001', time: Time.now, payload:) }
 
   let(:payload) do
     {
@@ -10,6 +10,7 @@ describe SolectrusRecord do
       power_a: 10.2,
       power_b: 20.5,
       power_c: 30.3,
+      response_duration: 20.5,
     }
   end
 
@@ -42,13 +43,13 @@ describe SolectrusRecord do
     end
   end
 
-  describe '#response_duration' do
+  describe '#mac' do
     it 'returns the value' do
-      expect(record.response_duration).to eq(20.5)
+      expect(record.mac).to eq('deadbeef0001')
     end
   end
 
-  %i[temp power power_a power_b power_c].each do |method|
+  %i[temp power power_a power_b power_c response_duration].each do |method|
     describe "##{method}" do
       it "returns the value of #{method} from the payload" do
         expect(record.send(method)).to eq(payload[method])
