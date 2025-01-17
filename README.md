@@ -12,6 +12,7 @@ Tested with these Shelly devices:
 - Shelly Pro 3EM
 - Shelly 3EM
 - Shelly Plus Plug S
+- Shelly Plug S (Gen3)
 - Shelly EM
 
 Untested, but should work with these devices:
