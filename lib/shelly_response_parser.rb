@@ -32,7 +32,8 @@ class ShellyResponseParser
   def time
     data['unixtime'] ||
       data.dig('sys', 'unixtime') ||
-      device_status['ts']
+      device_status['ts'] ||
+      Time.now.to_i
   end
 
   def temp
