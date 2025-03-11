@@ -76,7 +76,8 @@ class ShellyLocalAdapter
     "\nGot record ##{record.id} at " \
       "#{Time.at(record.time).localtime} " \
       "within #{record.response_duration} ms, " \
-      "Power #{record.power.round(1)} W"
+      "Power #{record.power.round(1)} W" +
+      (", Temperature #{record.temp} °C" if record.temp).to_s
   end
 
   def failure_message(error)
