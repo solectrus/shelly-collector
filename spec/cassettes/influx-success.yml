@@ -5,15 +5,15 @@ http_interactions:
     uri: http://<INFLUX_HOST>:8086/api/v2/write?bucket=<INFLUX_BUCKET>&org=<INFLUX_ORG>&precision=s
     body:
       encoding: UTF-8
-      string: my-shelly-measurement power=18.471,power_a=13.6,power_b=4.9,power_c=0.0,response_duration=145i,temp=46.2
-        1727340752
+      string: my-shelly-measurement power=1343.772,power_a=504.5,power_b=447.7,power_c=391.6,response_duration=0i,temp=47.7
+        1737091338
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
-      - influxdb-client-ruby/3.1.0
+      - influxdb-client-ruby/3.2.0
       Authorization:
       - Token <INFLUX_TOKEN>
       Content-Type:
@@ -26,11 +26,11 @@ http_interactions:
       X-Influxdb-Build:
       - OSS
       X-Influxdb-Version:
-      - v2.7.10
+      - v2.7.11
       Date:
-      - Thu, 26 Sep 2024 08:52:32 GMT
+      - Fri, 17 Jan 2025 05:57:41 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Thu, 26 Sep 2024 08:52:32 GMT
+  recorded_at: Fri, 17 Jan 2025 05:57:41 GMT
 recorded_with: VCR 6.3.1

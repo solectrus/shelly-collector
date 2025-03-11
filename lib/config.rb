@@ -1,11 +1,13 @@
-require 'shelly_gen1_adapter'
-require 'shelly_gen2_adapter'
+require 'shelly_local_adapter'
+require 'shelly_cloud_adapter'
 require 'blank'
 require 'null_logger'
 
 KEYS = %i[
   shelly_host
-  shelly_gen
+  shelly_cloud_server
+  shelly_device_id
+  shelly_auth_key
   shelly_interval
   influx_schema
   influx_host
@@ -18,7 +20,6 @@ KEYS = %i[
 ].freeze
 
 DEFAULTS = {
-  shelly_gen: 2,
   shelly_interval: 5,
   influx_schema: :http,
   influx_port: 8086,
@@ -53,7 +54,7 @@ Config =
       end
 
       # Integer
-      %i[shelly_interval influx_port shelly_gen].each do |key|
+      %i[shelly_interval influx_port].each do |key|
         self[key] = self[key]&.to_i
       end
     end
@@ -73,20 +74,19 @@ Config =
     def validate!
       validate_influx_settings!
       validate_interval!(shelly_interval)
-      validate_gen!(shelly_gen)
     end
 
     def influx_url
       "#{influx_schema}://#{influx_host}:#{influx_port}"
     end
 
-    def shelly_url
-      "http://#{shelly_host}"
-    end
-
     def adapter
-      # Instance of ShellyGen1Adapter or ShellyGen2Adapter
-      @adapter ||= Object.const_get("ShellyGen#{shelly_gen}Adapter").new(config: self)
+      @adapter ||=
+        if shelly_cloud_server
+          ShellyCloudAdapter.new(config: self)
+        else
+          ShellyLocalAdapter.new(config: self)
+        end
     end
 
     attr_writer :logger
@@ -99,10 +99,6 @@ Config =
 
     def validate_interval!(interval)
       (interval.is_a?(Integer) && interval.positive?) || throw("SHELLY_INTERVAL is invalid: #{interval}")
-    end
-
-    def validate_gen!(gen)
-      [1, 2].include?(gen) || throw("SHELLY_GEN is invalid: #{gen}")
     end
 
     def validate_influx_settings!
@@ -136,7 +132,9 @@ Config =
       new(
         {
           shelly_host: ENV.fetch('SHELLY_HOST', nil),
-          shelly_gen: ENV.fetch('SHELLY_GEN', nil),
+          shelly_cloud_server: ENV.fetch('SHELLY_CLOUD_SERVER', nil),
+          shelly_device_id: ENV.fetch('SHELLY_DEVICE_ID', nil),
+          shelly_auth_key: ENV.fetch('SHELLY_AUTH_KEY', nil),
           shelly_interval: ENV.fetch('SHELLY_INTERVAL', nil),
           influx_host: ENV.fetch('INFLUX_HOST'),
           influx_schema: ENV.fetch('INFLUX_SCHEMA', nil),

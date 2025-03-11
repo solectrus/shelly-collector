@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://shelly-plug-s-gen3/status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-length:
+      - '9'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: Not Found
+  recorded_at: Fri, 17 Jan 2025 12:15:52 GMT
+- request:
+    method: get
+    uri: http://shelly-plug-s-gen3/rpc/Shelly.GetStatus
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '791'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"ble":{},"cloud":{"connected":true},"mqtt":{"connected":false},"plugs_ui":{},"switch:0":{"id":0,
+        "source":"HTTP_in", "output":true, "apower":5.0, "voltage":234.7, "freq":50.0,
+        "current":0.074, "aenergy":{"total":0.849,"by_minute":[0.000,212.310,0.000],"minute_ts":1737116100},
+        "ret_aenergy":{"total":0.000,"by_minute":[0.000,0.000,0.000],"minute_ts":1737116100},"temperature":{"tC":35.0,
+        "tF":95.0}},"sys":{"mac":"8CBFEA9295D0","restart_required":false,"time":"13:15","unixtime":1737116152,"uptime":848,"ram_size":220144,"ram_free":120888,"fs_size":1048576,"fs_free":712704,"cfg_rev":10,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"available_updates":{},"reset_reason":3},"wifi":{"sta_ip":"192.168.178.108","status":"got
+        ip","ssid":"FRITZ!Box 4060 RX","rssi":-65},"ws":{"connected":false}}'
+  recorded_at: Fri, 17 Jan 2025 12:15:52 GMT
+- request:
+    method: get
+    uri: http://shelly-plug-s-gen3/rpc/Shelly.GetStatus
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '791'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"ble":{},"cloud":{"connected":true},"mqtt":{"connected":false},"plugs_ui":{},"switch:0":{"id":0,
+        "source":"HTTP_in", "output":true, "apower":5.0, "voltage":234.7, "freq":50.0,
+        "current":0.074, "aenergy":{"total":0.849,"by_minute":[0.000,212.310,0.000],"minute_ts":1737116100},
+        "ret_aenergy":{"total":0.000,"by_minute":[0.000,0.000,0.000],"minute_ts":1737116100},"temperature":{"tC":35.0,
+        "tF":95.0}},"sys":{"mac":"8CBFEA9295D0","restart_required":false,"time":"13:15","unixtime":1737116152,"uptime":848,"ram_size":220144,"ram_free":120880,"fs_size":1048576,"fs_free":712704,"cfg_rev":10,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"available_updates":{},"reset_reason":3},"wifi":{"sta_ip":"192.168.178.108","status":"got
+        ip","ssid":"FRITZ!Box 4060 RX","rssi":-65},"ws":{"connected":false}}'
+  recorded_at: Fri, 17 Jan 2025 12:15:52 GMT
+recorded_with: VCR 6.3.1

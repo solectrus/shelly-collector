@@ -12,11 +12,10 @@ Tested with these Shelly devices:
 - Shelly Pro 3EM
 - Shelly 3EM
 - Shelly Plus Plug S
+- Shelly Plug S (Gen3)
 - Shelly EM
 
-Untested, but should work with these devices:
-
-- Shelly Plug S
+There are two ways to get the data from the Shelly devices: Via local access (HTTP) or via the Shelly Cloud API.
 
 ## Requirements
 

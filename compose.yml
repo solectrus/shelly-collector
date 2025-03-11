@@ -1,7 +1,28 @@
 services:
   shelly-collector:
-    image: ghcr.io/solectrus/shelly-collector:latest
-    env_file: .env
-    network_mode: host
-    privileged: true
-    restart: unless-stopped
+    image: ghcr.io/solectrus/shelly-collector:develop
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - influxdb
+    env_file:
+      - .env
+    environment:
+      - INFLUX_HOST=influxdb
+      - INFLUX_TOKEN=my-token
+      - INFLUX_ORG=my-org
+      - INFLUX_BUCKET=my-bucket
+
+  influxdb:
+    image: influxdb:2.7-alpine
+    ports:
+      - 8086
+    environment:
+      - INFLUXD_HTTP_BIND_ADDRESS=:8086
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=my-user
+      - DOCKER_INFLUXDB_INIT_PASSWORD=my-password
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
