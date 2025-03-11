@@ -44,7 +44,6 @@ GEM
     hashdiff (1.1.2)
     influxdb-client (3.2.0)
       csv
-    io-console (0.8.0)
     json (2.10.1)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
@@ -79,8 +78,6 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     regexp_parser (2.10.0)
-    reline (0.6.0)
-      io-console (~> 0.5)
     rexml (3.4.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -152,7 +149,6 @@ DEPENDENCIES
   influxdb-client
   oj
   rake
-  reline
   rspec
   rubocop
   rubocop-performance
