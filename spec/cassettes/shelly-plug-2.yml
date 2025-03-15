@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://shelly-plug-2/status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      content-length:
+      - '9'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: Not Found
+  recorded_at: Fri, 17 Jan 2025 12:15:52 GMT
+- request:
+    method: get
+    uri: http://shelly-plug-2/rpc/Shelly.GetStatus
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '791'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"isok":true,"data":{"online":true,"device_status":{"has_update":false,"serial":50046,"actions_stats":{"skipped":0},"_updated":"2025-03-15 10:13:49","wifi_sta":{"connected":true,"ssid":"FRITZ!Box 7490","ip":"192.168.178.147","rssi":-56},"cloud":{"enabled":true,"connected":true},"unixtime":1741950096,"time":"11:13","uptime":1900888,"fs_size":233681,"mac":"111111111111","mqtt":{"connected":false},"update":{"status":"idle","has_update":false,"new_version":"20230913-113610/v1.14.0-gcb84623","old_version":"20230913-113610/v1.14.0-gcb84623","beta_version":"20231107-164401/v1.14.1-rc1-g0617c15"},"getinfo":{"fw_info":{"device":"shellyplug-111111","fw":"20230913-113610/v1.14.0-gcb84623"}},"relays":[{"ison":true,"has_timer":false,"timer_started":0,"timer_duration":0,"timer_remaining":0,"overpower":false,"source":"http"}],"ram_total":52096,"fs_free":165911,"cfg_changed_cnt":0,"meters":[{"power":134.63,"overpower":0,"is_valid":true,"timestamp":1742037230,"counters":[126.607,113.003,126.14],"total":463536}],"ram_free":40856}}}'
+  recorded_at: Fri, 17 Jan 2025 12:15:52 GMT
+- request:
+    method: get
+    uri: http://shelly-plug-2/rpc/Shelly.GetStatus
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '791'
+      server:
+      - ShellyHTTP/1.0.0
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"isok":true,"data":{"online":true,"device_status":{"has_update":false,"serial":50046,"actions_stats":{"skipped":0},"_updated":"2025-03-15 10:13:49","wifi_sta":{"connected":true,"ssid":"FRITZ!Box 7490","ip":"192.168.178.147","rssi":-56},"cloud":{"enabled":true,"connected":true},"unixtime":1741950096,"time":"11:13","uptime":1900888,"fs_size":233681,"mac":"111111111111","mqtt":{"connected":false},"update":{"status":"idle","has_update":false,"new_version":"20230913-113610/v1.14.0-gcb84623","old_version":"20230913-113610/v1.14.0-gcb84623","beta_version":"20231107-164401/v1.14.1-rc1-g0617c15"},"getinfo":{"fw_info":{"device":"shellyplug-111111","fw":"20230913-113610/v1.14.0-gcb84623"}},"relays":[{"ison":true,"has_timer":false,"timer_started":0,"timer_duration":0,"timer_remaining":0,"overpower":false,"source":"http"}],"ram_total":52096,"fs_free":165911,"cfg_changed_cnt":0,"meters":[{"power":134.63,"overpower":0,"is_valid":true,"timestamp":1742037230,"counters":[126.607,113.003,126.14],"total":463536}],"ram_free":40856}}}'
+  recorded_at: Fri, 17 Jan 2025 12:15:52 GMT
+recorded_with: VCR 6.3.1

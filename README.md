@@ -13,6 +13,7 @@ Tested with these Shelly devices:
 - Shelly 3EM
 - Shelly Plus Plug S
 - Shelly Plug S (Gen3)
+- Shelly Plug 2
 - Shelly EM
 
 There are two ways to get the data from the Shelly devices: Via local access (HTTP) or via the Shelly Cloud API.

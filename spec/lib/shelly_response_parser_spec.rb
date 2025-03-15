@@ -68,6 +68,24 @@ describe ShellyResponseParser do
       end
     end
 
+    context 'when Shelly Plug 2' do
+      let(:json) { read_json('shelly-plug-2') }
+
+      it { is_expected.to be_a(SolectrusRecord) }
+
+      it 'has an automatic id' do
+        expect(solectrus_record.id).to eq(1)
+      end
+
+      it 'has power' do
+        expect(solectrus_record.power).to be > 0
+      end
+
+      it 'has a valid time' do
+        expect(solectrus_record.time).to be > 1_700_000_000
+      end
+    end
+
     context 'when Shelly Pro EM' do
       let(:json) { read_json('shelly-em') }
 
