@@ -61,29 +61,32 @@ class ShellyResponseParser
     power_a.to_f + power_b.to_f + power_c.to_f
   end
 
-  def power_a
+  def power_a # rubocop:disable Metrics/CyclomaticComplexity
     (
       data.dig('emeters', 0, 'power') ||
       data.dig('meters', 0, 'power') ||
       data.dig('em:0', 'a_act_power') ||
+      device_status&.dig('meters', 0, 'power') ||
       device_status&.dig('em:0', 'a_act_power')
     )&.to_f
   end
 
-  def power_b
+  def power_b # rubocop:disable Metrics/CyclomaticComplexity
     (
       data.dig('emeters', 1, 'power') ||
       data.dig('meters', 1, 'power') ||
       data.dig('em:0', 'b_act_power') ||
+      device_status&.dig('meters', 1, 'power') ||
       device_status&.dig('em:0', 'b_act_power')
     )&.to_f
   end
 
-  def power_c
+  def power_c # rubocop:disable Metrics/CyclomaticComplexity
     (
       data.dig('emeters', 2, 'power') ||
       data.dig('meters', 2, 'power') ||
       data.dig('em:0', 'c_act_power') ||
+      device_status&.dig('meters', 2, 'power') ||
       device_status&.dig('em:0', 'c_act_power')
     )&.to_f
   end
