@@ -28,9 +28,41 @@ http_interactions:
       X-Influxdb-Version:
       - v2.7.11
       Date:
-      - Fri, 17 Jan 2025 05:57:41 GMT
+      - Wed, 07 May 2025 07:38:07 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Fri, 17 Jan 2025 05:57:41 GMT
+  recorded_at: Wed, 07 May 2025 07:38:07 GMT
+- request:
+    method: get
+    uri: http://<INFLUX_HOST>:8086/ping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - influxdb-client-ruby/3.2.0
+      Authorization:
+      - Token <INFLUX_TOKEN>
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Vary:
+      - Accept-Encoding
+      X-Influxdb-Build:
+      - OSS
+      X-Influxdb-Version:
+      - v2.7.11
+      Date:
+      - Wed, 07 May 2025 07:38:08 GMT
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 07 May 2025 07:38:08 GMT
 recorded_with: VCR 6.3.1

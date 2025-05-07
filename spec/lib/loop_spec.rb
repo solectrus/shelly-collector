@@ -2,17 +2,19 @@ require 'loop'
 require 'config'
 
 describe Loop do
-  let(:config) { Config.from_env(shelly_cloud_server: nil, shelly_host: 'shelly-pro-3em') }
+  let(:config) do
+    Config.from_env(shelly_cloud_server: nil, shelly_host: 'shelly-pro-3em')
+  end
   let(:logger) { MemoryLogger.new }
 
-  before do
-    config.logger = logger
-  end
+  before { config.logger = logger }
 
   describe '#start' do
-    it 'outputs the correct information when started', vcr: 'shelly-pro-3em' do
+    it 'outputs the correct information when started' do
       VCR.use_cassette('influx-success') do
-        described_class.start(config:, max_count: 2)
+        VCR.use_cassette('shelly-pro-3em') do
+          described_class.start(config:, max_count: 2, max_wait: 1)
+        end
       end
 
       expect(logger.info_messages).to include(/Got record #1/)
@@ -21,7 +23,11 @@ describe Loop do
     it 'handles Interrupt' do
       allow(config.adapter).to receive(:raw_response).and_raise(SystemExit)
 
-      described_class.start(config:)
+      VCR.use_cassette('influx-success') do
+        VCR.use_cassette('shelly-pro-3em') do
+          described_class.start(config:, max_wait: 1)
+        end
+      end
 
       expect(logger.error_messages).to include(/Exiting/)
     end
@@ -29,7 +35,9 @@ describe Loop do
     it 'handles errors' do
       allow(config.adapter).to receive(:raw_response).and_raise(StandardError)
 
-      described_class.start(config:, max_count: 1)
+      VCR.use_cassette('influx-success') do
+        described_class.start(config:, max_count: 1, max_wait: 1)
+      end
 
       expect(logger.error_messages).to include(/Error getting data/)
     end
