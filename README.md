@@ -10,8 +10,10 @@ Collects electricity consumption data from Shelly energy meters and transfers it
 Tested with these Shelly devices:
 
 - Shelly Pro 3EM
+- Shelly Pro 1PM
 - Shelly 3EM
 - Shelly Plus Plug S
+- Shelly Plus PM Mini Gen3
 - Shelly Plug S (Gen3)
 - Shelly Plug 2
 - Shelly EM
