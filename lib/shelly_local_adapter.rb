@@ -32,7 +32,7 @@ class ShellyLocalAdapter
     @data = nil
     @raw_response = nil
 
-    parser = ShellyResponseParser.new(raw_response.body)
+    parser = ShellyResponseParser.new(raw_response.body, invert_power: config.shelly_invert_power)
     record = parser.solectrus_record(id:, response_duration:)
     logger.info success_message(record)
     record

@@ -9,6 +9,7 @@ KEYS = %i[
   shelly_device_id
   shelly_auth_key
   shelly_interval
+  shelly_invert_power
   influx_schema
   influx_host
   influx_port
@@ -21,6 +22,7 @@ KEYS = %i[
 
 DEFAULTS = {
   shelly_interval: 5,
+  shelly_invert_power: false,
   influx_schema: :http,
   influx_port: 8086,
   influx_measurement: 'Consumer',
@@ -128,7 +130,7 @@ Config =
       %i[default essential].include?(mode) || throw("INFLUX_MODE is invalid: #{mode}")
     end
 
-    def self.from_env(options = {})
+    def self.from_env(options = {}) # rubocop:disable Metrics/AbcSize
       new(
         {
           shelly_host: ENV.fetch('SHELLY_HOST', nil),
@@ -136,6 +138,7 @@ Config =
           shelly_device_id: ENV.fetch('SHELLY_DEVICE_ID', nil),
           shelly_auth_key: ENV.fetch('SHELLY_AUTH_KEY', nil),
           shelly_interval: ENV.fetch('SHELLY_INTERVAL', nil),
+          shelly_invert_power: ENV.fetch('SHELLY_INVERT_POWER', nil).to_s&.downcase == 'true',
           influx_host: ENV.fetch('INFLUX_HOST'),
           influx_schema: ENV.fetch('INFLUX_SCHEMA', nil),
           influx_port: ENV.fetch('INFLUX_PORT', nil),
