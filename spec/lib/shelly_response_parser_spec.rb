@@ -185,6 +185,30 @@ describe ShellyResponseParser do
     end
   end
 
+  describe 'power inversion' do
+    let(:json) { read_json('shelly-plug-s-gen1') }
+
+    context 'when invert_power is false' do
+      subject(:parser) { described_class.new(json, invert_power: false) }
+
+      it 'returns positive power value' do
+        expect(parser.solectrus_record.power).to be > 0
+      end
+    end
+
+    context 'when invert_power is true' do
+      subject(:parser) { described_class.new(json, invert_power: true) }
+
+      it 'returns negative power value' do
+        original_power = described_class.new(json, invert_power: false).solectrus_record.power
+        inverted_power = parser.solectrus_record.power
+
+        expect(inverted_power).to eq(-original_power)
+        expect(inverted_power).to be < 0
+      end
+    end
+  end
+
   def read_json(cassette_name)
     cassette_path = VCR.configuration.cassette_library_dir + "/#{cassette_name}.yml"
     yaml_content = YAML.load_file(cassette_path)

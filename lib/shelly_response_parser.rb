@@ -1,10 +1,11 @@
 require 'solectrus_record'
 
 class ShellyResponseParser
-  def initialize(json)
+  def initialize(json, invert_power: false)
     @data = JSON.parse(json)
+    @invert_power = invert_power
   end
-  attr_reader :data
+  attr_reader :data, :invert_power
 
   def solectrus_record(id: 1, response_duration: nil)
     SolectrusRecord.new(id:, mac:, time:, payload: record_hash.merge(response_duration:))
@@ -46,14 +47,17 @@ class ShellyResponseParser
     )&.to_f
   end
 
-  def power
-    (
-      data['total_power'] ||
+  def raw_power_value
+    data['total_power'] ||
       data.dig('pm1:0', 'apower') ||
       data.dig('em:0', 'total_act_power') ||
       device_status&.dig('em:0', 'total_act_power') ||
       phases_total
-    )&.to_f
+  end
+
+  def power
+    raw = raw_power_value&.to_f
+    raw && invert_power ? -raw : raw
   end
 
   def phases_total
