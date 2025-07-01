@@ -11,6 +11,13 @@ describe StdoutLogger do
     it { expect { info }.to output(/#{message}/).to_stdout }
   end
 
+  describe '#warn' do
+    subject(:warn) { logger.warn(message) }
+
+    it { expect { warn }.to output(/#{message}/).to_stdout }
+    it { expect { warn }.to output(/\e\[33m/).to_stdout }
+  end
+
   describe '#error' do
     subject(:error) { logger.error(message) }
 

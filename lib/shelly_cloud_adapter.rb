@@ -39,15 +39,25 @@ class ShellyCloudAdapter
   private
 
   def raw_response
-    @raw_response ||= begin
+    @raw_response ||= loop do
       response = connection.get('/device/status') do |req|
         req.params['id'] = config.shelly_device_id
         req.params['auth_key'] = config.shelly_auth_key
       end
+      break response if response.success?
 
-      raise StandardError, response.status unless response.success?
+      handle_error_response(response)
+    end
+  end
 
-      response
+  def handle_error_response(response)
+    case response.status
+    when 429
+      wait_time = rand(10..30)
+      logger.warn "Rate limit hit (429), waiting #{wait_time} seconds before retry..."
+      sleep(wait_time)
+    else
+      raise StandardError, response.status
     end
   end
 
