@@ -4,6 +4,7 @@ require 'solectrus_record'
 require 'forwardable'
 require 'faraday'
 require 'faraday-request-timer'
+require 'digest_auth'
 
 class ShellyLocalAdapter
   extend Forwardable
@@ -23,6 +24,13 @@ class ShellyLocalAdapter
   def connection
     @connection ||= Faraday.new(url: shelly_url) do |f|
       f.adapter Faraday.default_adapter
+
+      if config.shelly_password.present?
+        f.request :digest_auth,
+                  username: 'admin',
+                  password: config.shelly_password
+      end
+
       f.request :timer
     end
   end
@@ -62,12 +70,13 @@ class ShellyLocalAdapter
         GEN2_PATH
       else
         raise StandardError,
-              "Unknown Shelly generation, the device at #{shelly_url} does not not respond to #{GEN1_PATH} or #{GEN2_PATH}"
+              "The device at #{shelly_url} does not not respond to #{GEN1_PATH} or #{GEN2_PATH}"
       end
   end
 
   def can_connect_to?(path)
-    connection.get(path).success?
+    result = connection.get(path)
+    result.success? || result.status == 401
   rescue StandardError
     false
   end

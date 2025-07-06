@@ -10,6 +10,7 @@ KEYS = %i[
   shelly_auth_key
   shelly_interval
   shelly_invert_power
+  shelly_password
   influx_schema
   influx_host
   influx_port
@@ -134,6 +135,7 @@ Config =
       new(
         {
           shelly_host: ENV.fetch('SHELLY_HOST', nil),
+          shelly_password: ENV.fetch('SHELLY_PASSWORD', nil),
           shelly_cloud_server: ENV.fetch('SHELLY_CLOUD_SERVER', nil),
           shelly_device_id: ENV.fetch('SHELLY_DEVICE_ID', nil),
           shelly_auth_key: ENV.fetch('SHELLY_AUTH_KEY', nil),
