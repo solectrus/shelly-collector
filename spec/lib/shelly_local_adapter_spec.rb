@@ -99,6 +99,28 @@ describe ShellyLocalAdapter do
       end
     end
 
+    context 'when Shelly needs authentication', vcr: 'shelly-auth' do
+      subject(:solectrus_record) { adapter.solectrus_record }
+
+      let(:shelly_host) { '192.168.178.108' }
+
+      it 'has values' do
+        expect(solectrus_record.power).to eq(0.0)
+        expect(solectrus_record.temp).to be > 0
+      end
+
+      it 'has a valid time' do
+        expect(solectrus_record.time).to be > 1_700_000_000
+      end
+
+      it 'handles errors' do
+        allow(Faraday::Adapter).to receive(:new).and_raise(StandardError)
+
+        solectrus_record
+        expect(logger.error_messages).to include(/Error getting data from Shelly at/)
+      end
+    end
+
     context 'when Shelly PM Mini (Gen3)', vcr: 'shelly-pm-mini-gen3' do
       subject(:solectrus_record) { adapter.solectrus_record }
 
