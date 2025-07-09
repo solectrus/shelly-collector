@@ -53,6 +53,14 @@ The Shelly Collector sends the following data to InfluxDB (stored as fields in t
 - `response_duration` (in milliseconds)
 - `temp` (in °C, if available)
 
+By default, all numeric values are stored as floating-point numbers in InfluxDB. If you need integer values for power measurements instead (e.g., when migrating from Home Assistant), you can set the power data type to integer using the `INFLUX_POWER_DATA_TYPE` environment variable:
+
+```bash
+INFLUX_POWER_DATA_TYPE=Integer
+```
+
+This will affect all power-related fields (`power`, `power_a`, `power_b`, `power_c`) while keeping other fields like `temp` and `response_duration` as floats. This is useful when you previously stored power values as integers and want to avoid InfluxDB type conflicts.
+
 ## License
 
 Copyright (c) 2024-2025 Georg Ledermann, released under the MIT License

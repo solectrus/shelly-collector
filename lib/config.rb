@@ -19,6 +19,7 @@ KEYS = %i[
   influx_bucket
   influx_measurement
   influx_mode
+  influx_power_data_type
 ].freeze
 
 DEFAULTS = {
@@ -28,6 +29,7 @@ DEFAULTS = {
   influx_port: 8086,
   influx_measurement: 'Consumer',
   influx_mode: :default,
+  influx_power_data_type: 'Float',
 }.freeze
 
 Config =
@@ -77,6 +79,7 @@ Config =
     def validate!
       validate_influx_settings!
       validate_interval!(shelly_interval)
+      validate_power_data_type!(influx_power_data_type)
     end
 
     def influx_url
@@ -131,6 +134,10 @@ Config =
       %i[default essential].include?(mode) || throw("INFLUX_MODE is invalid: #{mode}")
     end
 
+    def validate_power_data_type!(data_type)
+      %w[Float Integer].include?(data_type) || throw("INFLUX_POWER_DATA_TYPE is invalid: #{data_type}")
+    end
+
     def self.from_env(options = {}) # rubocop:disable Metrics/AbcSize
       new(
         {
@@ -149,6 +156,7 @@ Config =
           influx_bucket: ENV.fetch('INFLUX_BUCKET', nil),
           influx_measurement: ENV.fetch('INFLUX_MEASUREMENT', nil),
           influx_mode: ENV.fetch('INFLUX_MODE', nil)&.to_sym,
+          influx_power_data_type: ENV.fetch('INFLUX_POWER_DATA_TYPE', nil),
         }.merge(options),
       )
     end
