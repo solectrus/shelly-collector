@@ -7,7 +7,7 @@ describe FluxWriter do
       influx_bucket: 'test_bucket',
       influx_org: 'test_org',
       influx_measurement: 'test_measurement',
-      influx_power_data_type: power_data_type
+      influx_power_data_type: power_data_type,
     )
   end
   let(:power_data_type) { 'Float' }
@@ -24,8 +24,8 @@ describe FluxWriter do
           power_b: 15.8,
           power_c: 20.1,
           temp: 25.5,
-          response_duration: 1.23
-        }
+          response_duration: 1.23,
+        },
       )
     end
 
@@ -34,7 +34,7 @@ describe FluxWriter do
 
       it 'leaves all fields as their original types' do
         point = flux_writer.send(:point, record)
-        
+
         expect(point.name).to eq('test_measurement')
         expect(point.time).to eq(record.time)
         expect(point.fields[:power]).to eq(42.7)
@@ -51,7 +51,7 @@ describe FluxWriter do
 
       it 'converts power fields to integers using round' do
         point = flux_writer.send(:point, record)
-        
+
         expect(point.fields[:power]).to eq(43)
         expect(point.fields[:power]).to be_a(Integer)
         expect(point.fields[:power_a]).to eq(10)
@@ -60,7 +60,7 @@ describe FluxWriter do
         expect(point.fields[:power_b]).to be_a(Integer)
         expect(point.fields[:power_c]).to eq(20)
         expect(point.fields[:power_c]).to be_a(Integer)
-        
+
         # Non-power fields should remain as floats
         expect(point.fields[:temp]).to eq(25.5)
         expect(point.fields[:temp]).to be_a(Float)
@@ -75,13 +75,13 @@ describe FluxWriter do
         double(
           'SolectrusRecord',
           time: Time.now.to_i,
-          to_hash: { power: 42, temp: 25.5 }
+          to_hash: { power: 42, temp: 25.5 },
         )
       end
 
       it 'preserves the integer value' do
         point = flux_writer.send(:point, record)
-        
+
         expect(point.fields[:power]).to eq(42)
         expect(point.fields[:power]).to be_a(Integer)
         expect(point.fields[:temp]).to eq(25.5)
@@ -95,13 +95,13 @@ describe FluxWriter do
         double(
           'SolectrusRecord',
           time: Time.now.to_i,
-          to_hash: { temp: 25.5 }
+          to_hash: { temp: 25.5 },
         )
       end
 
       it 'does not cause errors' do
         point = flux_writer.send(:point, record)
-        
+
         expect(point.fields[:temp]).to eq(25.5)
         expect(point.fields).not_to have_key(:power)
       end

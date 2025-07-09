@@ -23,17 +23,16 @@ class FluxWriter
 
   def point(record)
     fields = record.to_hash
-    
+
     # Convert power fields to integers if configured
     if config.influx_power_data_type == 'Integer'
-      power_fields = %i[power power_a power_b power_c]
-      power_fields.each do |field|
-        if fields.key?(field) && fields[field].is_a?(Numeric)
-          fields[field] = fields[field].round.to_i
-        end
+      fields.each do |key, value|
+        next unless key.to_s.start_with?('power') && value.is_a?(Numeric)
+
+        fields[key] = value.round
       end
     end
-    
+
     InfluxDB2::Point.new(
       name: influx_measurement,
       time: record.time,
