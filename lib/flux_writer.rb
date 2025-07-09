@@ -24,11 +24,13 @@ class FluxWriter
   def point(record)
     fields = record.to_hash
     
-    # Convert specified fields to integers
-    config.influx_integer_fields.each do |field|
-      field_sym = field.to_sym
-      if fields.key?(field_sym) && fields[field_sym].is_a?(Numeric)
-        fields[field_sym] = fields[field_sym].to_i
+    # Convert power fields to integers if configured
+    if config.influx_power_data_type == 'Integer'
+      power_fields = %i[power power_a power_b power_c]
+      power_fields.each do |field|
+        if fields.key?(field) && fields[field].is_a?(Numeric)
+          fields[field] = fields[field].round.to_i
+        end
       end
     end
     

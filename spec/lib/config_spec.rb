@@ -104,34 +104,28 @@ describe Config do
       expect(config.influx_mode).to eq(:essential)
     end
 
-    it 'returns default empty array for influx_integer_fields' do
-      expect(config.influx_integer_fields).to eq([])
+    it 'returns default Float for influx_power_data_type' do
+      expect(config.influx_power_data_type).to eq('Float')
     end
   end
 
-  describe 'influx_integer_fields conversion' do
-    it 'converts comma-separated string to array' do
-      config = described_class.new(valid_options.merge(influx_integer_fields: 'power,power_a,power_b'))
+  describe 'influx_power_data_type validation' do
+    it 'accepts Float as data type' do
+      config = described_class.new(valid_options.merge(influx_power_data_type: 'Float'))
 
-      expect(config.influx_integer_fields).to eq(['power', 'power_a', 'power_b'])
+      expect(config.influx_power_data_type).to eq('Float')
     end
 
-    it 'handles string with spaces' do
-      config = described_class.new(valid_options.merge(influx_integer_fields: ' power , power_a , power_b '))
+    it 'accepts Integer as data type' do
+      config = described_class.new(valid_options.merge(influx_power_data_type: 'Integer'))
 
-      expect(config.influx_integer_fields).to eq(['power', 'power_a', 'power_b'])
+      expect(config.influx_power_data_type).to eq('Integer')
     end
 
-    it 'handles empty string' do
-      config = described_class.new(valid_options.merge(influx_integer_fields: ''))
-
-      expect(config.influx_integer_fields).to eq([])
-    end
-
-    it 'preserves array input' do
-      config = described_class.new(valid_options.merge(influx_integer_fields: ['power', 'temp']))
-
-      expect(config.influx_integer_fields).to eq(['power', 'temp'])
+    it 'raises error for invalid data type' do
+      expect do
+        described_class.new(valid_options.merge(influx_power_data_type: 'Invalid'))
+      end.to raise_error(Exception, /INFLUX_POWER_DATA_TYPE is invalid/)
     end
   end
 end
