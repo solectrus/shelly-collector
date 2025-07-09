@@ -53,6 +53,14 @@ The Shelly Collector sends the following data to InfluxDB (stored as fields in t
 - `response_duration` (in milliseconds)
 - `temp` (in °C, if available)
 
+By default, all numeric values are stored as floating-point numbers in InfluxDB. If you need integer values instead (e.g., when migrating from Home Assistant), you can specify which fields should be written as integers using the `INFLUX_INTEGER_FIELDS` environment variable:
+
+```bash
+INFLUX_INTEGER_FIELDS=power,power_a,power_b,power_c
+```
+
+This is useful when you previously stored these values as integers and want to avoid InfluxDB type conflicts.
+
 ## License
 
 Copyright (c) 2024-2025 Georg Ledermann, released under the MIT License
