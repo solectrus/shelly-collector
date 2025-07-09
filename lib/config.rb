@@ -19,6 +19,7 @@ KEYS = %i[
   influx_bucket
   influx_measurement
   influx_mode
+  influx_integer_fields
 ].freeze
 
 DEFAULTS = {
@@ -28,6 +29,7 @@ DEFAULTS = {
   influx_port: 8086,
   influx_measurement: 'Consumer',
   influx_mode: :default,
+  influx_integer_fields: [],
 }.freeze
 
 Config =
@@ -59,6 +61,11 @@ Config =
       # Integer
       %i[shelly_interval influx_port].each do |key|
         self[key] = self[key]&.to_i
+      end
+
+      # Array of strings (comma-separated)
+      if influx_integer_fields.is_a?(String)
+        self[:influx_integer_fields] = influx_integer_fields.split(',').map(&:strip).reject(&:empty?)
       end
     end
 
@@ -149,6 +156,7 @@ Config =
           influx_bucket: ENV.fetch('INFLUX_BUCKET', nil),
           influx_measurement: ENV.fetch('INFLUX_MEASUREMENT', nil),
           influx_mode: ENV.fetch('INFLUX_MODE', nil)&.to_sym,
+          influx_integer_fields: ENV.fetch('INFLUX_INTEGER_FIELDS', nil),
         }.merge(options),
       )
     end

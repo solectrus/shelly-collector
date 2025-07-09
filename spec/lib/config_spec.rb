@@ -103,5 +103,35 @@ describe Config do
     it 'returns correct influx_mode' do
       expect(config.influx_mode).to eq(:essential)
     end
+
+    it 'returns default empty array for influx_integer_fields' do
+      expect(config.influx_integer_fields).to eq([])
+    end
+  end
+
+  describe 'influx_integer_fields conversion' do
+    it 'converts comma-separated string to array' do
+      config = described_class.new(valid_options.merge(influx_integer_fields: 'power,power_a,power_b'))
+
+      expect(config.influx_integer_fields).to eq(['power', 'power_a', 'power_b'])
+    end
+
+    it 'handles string with spaces' do
+      config = described_class.new(valid_options.merge(influx_integer_fields: ' power , power_a , power_b '))
+
+      expect(config.influx_integer_fields).to eq(['power', 'power_a', 'power_b'])
+    end
+
+    it 'handles empty string' do
+      config = described_class.new(valid_options.merge(influx_integer_fields: ''))
+
+      expect(config.influx_integer_fields).to eq([])
+    end
+
+    it 'preserves array input' do
+      config = described_class.new(valid_options.merge(influx_integer_fields: ['power', 'temp']))
+
+      expect(config.influx_integer_fields).to eq(['power', 'temp'])
+    end
   end
 end

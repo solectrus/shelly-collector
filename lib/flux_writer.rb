@@ -22,10 +22,20 @@ class FluxWriter
   private
 
   def point(record)
+    fields = record.to_hash
+    
+    # Convert specified fields to integers
+    config.influx_integer_fields.each do |field|
+      field_sym = field.to_sym
+      if fields.key?(field_sym) && fields[field_sym].is_a?(Numeric)
+        fields[field_sym] = fields[field_sym].to_i
+      end
+    end
+    
     InfluxDB2::Point.new(
       name: influx_measurement,
       time: record.time,
-      fields: record.to_hash,
+      fields: fields,
       # TODO: Add tags, so just ONE Measurement would be enough
       # tags: { mac: record.mac }.compact,
     )
