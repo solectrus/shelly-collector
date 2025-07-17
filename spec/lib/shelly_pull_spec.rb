@@ -77,7 +77,7 @@ describe ShellyPull do
         end.not_to change(queue, :length) # Because power is still zero
       end
 
-      it 'does queue last_record before non-zero' do # rubocop:disable RSpec/MultipleExpectations
+      it 'does queue last_record before non-zero' do
         expect do
           record1 = SolectrusRecord.new(id: 7, time: 7, payload: { power: 0 })
           allow(config.adapter).to receive(:solectrus_record).and_return(record1)

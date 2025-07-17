@@ -103,5 +103,29 @@ describe Config do
     it 'returns correct influx_mode' do
       expect(config.influx_mode).to eq(:essential)
     end
+
+    it 'returns default Float for influx_power_data_type' do
+      expect(config.influx_power_data_type).to eq('Float')
+    end
+  end
+
+  describe 'influx_power_data_type validation' do
+    it 'accepts Float as data type' do
+      config = described_class.new(valid_options.merge(influx_power_data_type: 'Float'))
+
+      expect(config.influx_power_data_type).to eq('Float')
+    end
+
+    it 'accepts Integer as data type' do
+      config = described_class.new(valid_options.merge(influx_power_data_type: 'Integer'))
+
+      expect(config.influx_power_data_type).to eq('Integer')
+    end
+
+    it 'raises error for invalid data type' do
+      expect do
+        described_class.new(valid_options.merge(influx_power_data_type: 'Invalid'))
+      end.to raise_error(Exception, /INFLUX_POWER_DATA_TYPE is invalid/)
+    end
   end
 end
