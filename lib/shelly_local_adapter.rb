@@ -8,6 +8,7 @@ require 'digest_auth'
 
 class ShellyLocalAdapter
   extend Forwardable
+
   def_delegators :config, :logger
 
   GEN1_PATH = '/status'.freeze
