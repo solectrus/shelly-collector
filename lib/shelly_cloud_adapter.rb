@@ -5,6 +5,7 @@ require 'faraday-request-timer'
 
 class ShellyCloudAdapter
   extend Forwardable
+
   def_delegators :config, :logger
 
   def initialize(config:)

@@ -147,7 +147,7 @@ Config =
           shelly_device_id: ENV.fetch('SHELLY_DEVICE_ID', nil),
           shelly_auth_key: ENV.fetch('SHELLY_AUTH_KEY', nil),
           shelly_interval: ENV.fetch('SHELLY_INTERVAL', nil),
-          shelly_invert_power: ENV.fetch('SHELLY_INVERT_POWER', nil).to_s&.downcase == 'true',
+          shelly_invert_power: ENV.fetch('SHELLY_INVERT_POWER', nil).to_s.downcase == 'true',
           influx_host: ENV.fetch('INFLUX_HOST'),
           influx_schema: ENV.fetch('INFLUX_SCHEMA', nil),
           influx_port: ENV.fetch('INFLUX_PORT', nil),
