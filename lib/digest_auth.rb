@@ -70,7 +70,7 @@ class DigestAuth < Faraday::Middleware
   end
 
   def parse_www_authenticate(header)
-    header.scan(/(\w+)=["]?([^",]+)["]?/).to_h
+    header.scan(/(\w+)="?([^",]+)"?/).to_h
   end
 end
 
