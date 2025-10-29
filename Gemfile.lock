@@ -27,7 +27,7 @@ GEM
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-musl)
     ffi (1.17.2-x86_64-linux-musl)
-    formatador (1.2.1)
+    formatador (1.2.2)
       reline
     guard (2.19.1)
       formatador (>= 0.2.4)
