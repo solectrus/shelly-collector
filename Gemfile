@@ -33,7 +33,7 @@ group :development do
 end
 
 group :development, :test do
-  # rspec-3.13.1 (https://rspec.info)
+  # rspec-3.13.2 (https://rspec.info)
   gem 'rspec'
 
   # Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
