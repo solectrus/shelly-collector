@@ -27,7 +27,7 @@ GEM
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-musl)
     ffi (1.17.2-x86_64-linux-musl)
-    formatador (1.2.2)
+    formatador (1.2.3)
       reline
     guard (2.19.1)
       formatador (>= 0.2.4)
@@ -85,7 +85,7 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     regexp_parser (2.11.3)
-    reline (0.6.2)
+    reline (0.6.3)
       io-console (~> 0.5)
     rexml (3.4.4)
     rspec (3.13.2)
