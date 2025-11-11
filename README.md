@@ -15,7 +15,7 @@ Tested with these Shelly devices:
 - Shelly Pro 4PM
 - Shelly 3EM
 - Shelly Plus Plug S
-- Shelly Plus PM Mini Gen3
+- Shelly PM Mini Gen3
 - Shelly Plug S (Gen3)
 - Shelly Plug 2
 - Shelly EM
