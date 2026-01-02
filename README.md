@@ -63,4 +63,4 @@ This will affect all power-related fields (`power`, `power_a`, `power_b`, `power
 
 ## License
 
-Copyright (c) 2024-2025 Georg Ledermann, released under the MIT License
+Copyright (c) 2024-2026 Georg Ledermann, released under the MIT License
