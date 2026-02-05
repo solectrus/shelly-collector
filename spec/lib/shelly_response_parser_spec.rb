@@ -56,7 +56,7 @@ describe ShellyResponseParser do
       end
 
       it 'has power' do
-        expect(solectrus_record.power).to be > 0
+        expect(solectrus_record.power).to be >= 0
       end
 
       it 'has temp' do

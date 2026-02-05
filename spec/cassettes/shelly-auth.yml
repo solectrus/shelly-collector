@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.2
+      - Faraday v2.14.0
   response:
     status:
       code: 404
@@ -23,7 +23,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: Not Found
-  recorded_at: Sun, 06 Jul 2025 13:47:42 GMT
+  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
 - request:
     method: get
     uri: http://192.168.178.108/rpc/Shelly.GetStatus
@@ -32,14 +32,14 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.2
+      - Faraday v2.14.0
   response:
     status:
       code: 401
       message: Unauthorized
     headers:
       www-authenticate:
-      - Digest qop="auth", realm="shellyplugsg3-8cbfea9295d0", nonce="1751809662",
+      - Digest qop="auth", realm="shellyplugsg3-8cbfea9295d0", nonce="1770265228",
         algorithm=SHA-256
       content-length:
       - '0'
@@ -50,7 +50,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Sun, 06 Jul 2025 13:47:42 GMT
+  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
 - request:
     method: get
     uri: http://192.168.178.108/rpc/Shelly.GetStatus
@@ -59,11 +59,11 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.2
+      - Faraday v2.14.0
       Authorization:
-      - Digest username="admin", realm="shellyplugsg3-8cbfea9295d0", nonce="1751809662",
-        uri="/rpc/Shelly.GetStatus", qop=auth, nc=00000001, cnonce="63982e7a1291b1a7",
-        response="3566f06e73b47e58fd946e524c7027cb0656dcc63e191094e2cec310b5012d5e",
+      - Digest username="admin", realm="shellyplugsg3-8cbfea9295d0", nonce="1770265228",
+        uri="/rpc/Shelly.GetStatus", qop=auth, nc=00000001, cnonce="33fe9519295ce4fb",
+        response="a8f6c92307c04973b970a4c88aefce6affccb70535401ec10a39ce18103eff67",
         algorithm=SHA-256
   response:
     status:
@@ -73,20 +73,20 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '825'
+      - '1075'
       server:
       - ShellyHTTP/1.0.0
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"ble":{},"cloud":{"connected":true},"mqtt":{"connected":false},"plugs_ui":{},"switch:0":{"id":0,
-        "source":"init", "output":true, "apower":0.0, "voltage":238.0, "freq":50.0,
-        "current":0.000, "aenergy":{"total":7023.715,"by_minute":[0.000,0.000,0.000],"minute_ts":1751809620},
-        "ret_aenergy":{"total":0.000,"by_minute":[0.000,0.000,0.000],"minute_ts":1751809620},"temperature":{"tC":37.5,
-        "tF":99.5}},"sys":{"mac":"8CBFEA9295D0","restart_required":false,"time":"15:47","unixtime":1751809662,"uptime":1066614,"ram_size":220016,"ram_free":116248,"fs_size":1048576,"fs_free":708608,"cfg_rev":19,"kvs_rev":0,"schedule_rev":1,"webhook_rev":0,"available_updates":{"beta":{"version":"1.7.0-beta2"}},"reset_reason":3},"wifi":{"sta_ip":"192.168.178.108","status":"got
-        ip","ssid":"FRITZ!Box 4060 RX","rssi":-37},"ws":{"connected":false}}'
-  recorded_at: Sun, 06 Jul 2025 13:47:42 GMT
+      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"knx":{},"matter":{"num_fabrics":0,"commissionable":false},"mqtt":{"connected":false},"plugs_ui":{},"switch:0":{"id":0,
+        "source":"SHC", "output":true, "apower":0.0, "voltage":236.9, "freq":50.0,
+        "current":0.000, "aenergy":{"total":13194.500,"by_minute":[0.000,0.000,0.000],"minute_ts":1770265200},
+        "ret_aenergy":{"total":0.000,"by_minute":[0.000,0.000,0.000],"minute_ts":1770265200},"temperature":{"tC":35.6,
+        "tF":96.1}},"sys":{"mac":"8CBFEA9295D0","restart_required":false,"time":"05:20","unixtime":1770265228,"last_sync_ts":1770263849,"uptime":4126121,"ram_size":258920,"ram_free":112804,"ram_min_free":93904,"fs_size":917504,"fs_free":466944,"cfg_rev":23,"kvs_rev":0,"schedule_rev":1,"webhook_rev":0,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"wifi":{"sta_ip":"192.168.178.108","status":"got
+        ip","ssid":"FRITZ!Box 4060 RX","bssid":"3c:37:12:88:45:39","rssi":-37,"sta_ip6":["fe80::8ebf:eaff:fe92:95d0"]},"ws":{"connected":false}}'
+  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
 - request:
     method: get
     uri: http://192.168.178.108/rpc/Shelly.GetStatus
@@ -95,14 +95,14 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.2
+      - Faraday v2.14.0
   response:
     status:
       code: 401
       message: Unauthorized
     headers:
       www-authenticate:
-      - Digest qop="auth", realm="shellyplugsg3-8cbfea9295d0", nonce="1751809662",
+      - Digest qop="auth", realm="shellyplugsg3-8cbfea9295d0", nonce="1770265228",
         algorithm=SHA-256
       content-length:
       - '0'
@@ -113,7 +113,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Sun, 06 Jul 2025 13:47:42 GMT
+  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
 - request:
     method: get
     uri: http://192.168.178.108/rpc/Shelly.GetStatus
@@ -122,11 +122,11 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.2
+      - Faraday v2.14.0
       Authorization:
-      - Digest username="admin", realm="shellyplugsg3-8cbfea9295d0", nonce="1751809662",
-        uri="/rpc/Shelly.GetStatus", qop=auth, nc=00000002, cnonce="b19621c82d0b2877",
-        response="cfd3996f40ae94baea1890e8a9b47c540813aad1c41403ef1644aa3a3017c28b",
+      - Digest username="admin", realm="shellyplugsg3-8cbfea9295d0", nonce="1770265228",
+        uri="/rpc/Shelly.GetStatus", qop=auth, nc=00000002, cnonce="818891f2043fb189",
+        response="878dc5fefb7a22a28766c911bbe47a197a0bc531c1a201cb86c56276bc12c115",
         algorithm=SHA-256
   response:
     status:
@@ -136,18 +136,18 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '825'
+      - '1075'
       server:
       - ShellyHTTP/1.0.0
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"ble":{},"cloud":{"connected":true},"mqtt":{"connected":false},"plugs_ui":{},"switch:0":{"id":0,
-        "source":"init", "output":true, "apower":0.0, "voltage":238.0, "freq":50.0,
-        "current":0.000, "aenergy":{"total":7023.715,"by_minute":[0.000,0.000,0.000],"minute_ts":1751809620},
-        "ret_aenergy":{"total":0.000,"by_minute":[0.000,0.000,0.000],"minute_ts":1751809620},"temperature":{"tC":37.5,
-        "tF":99.5}},"sys":{"mac":"8CBFEA9295D0","restart_required":false,"time":"15:47","unixtime":1751809662,"uptime":1066614,"ram_size":220016,"ram_free":116264,"fs_size":1048576,"fs_free":708608,"cfg_rev":19,"kvs_rev":0,"schedule_rev":1,"webhook_rev":0,"available_updates":{"beta":{"version":"1.7.0-beta2"}},"reset_reason":3},"wifi":{"sta_ip":"192.168.178.108","status":"got
-        ip","ssid":"FRITZ!Box 4060 RX","rssi":-37},"ws":{"connected":false}}'
-  recorded_at: Sun, 06 Jul 2025 13:47:42 GMT
-recorded_with: VCR 6.3.1
+      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"knx":{},"matter":{"num_fabrics":0,"commissionable":false},"mqtt":{"connected":false},"plugs_ui":{},"switch:0":{"id":0,
+        "source":"SHC", "output":true, "apower":0.0, "voltage":236.9, "freq":50.0,
+        "current":0.000, "aenergy":{"total":13194.500,"by_minute":[0.000,0.000,0.000],"minute_ts":1770265200},
+        "ret_aenergy":{"total":0.000,"by_minute":[0.000,0.000,0.000],"minute_ts":1770265200},"temperature":{"tC":35.6,
+        "tF":96.1}},"sys":{"mac":"8CBFEA9295D0","restart_required":false,"time":"05:20","unixtime":1770265228,"last_sync_ts":1770263849,"uptime":4126121,"ram_size":258920,"ram_free":112800,"ram_min_free":93904,"fs_size":917504,"fs_free":466944,"cfg_rev":23,"kvs_rev":0,"schedule_rev":1,"webhook_rev":0,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"wifi":{"sta_ip":"192.168.178.108","status":"got
+        ip","ssid":"FRITZ!Box 4060 RX","bssid":"3c:37:12:88:45:39","rssi":-37,"sta_ip6":["fe80::8ebf:eaff:fe92:95d0"]},"ws":{"connected":false}}'
+  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
+recorded_with: VCR 6.4.0

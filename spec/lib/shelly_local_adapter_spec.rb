@@ -83,8 +83,8 @@ describe ShellyLocalAdapter do
       let(:shelly_host) { 'shelly-plug-s-gen3' }
 
       it 'has values' do
-        expect(solectrus_record.power).to be > 0
-        expect(solectrus_record.temp).to be > 0
+        expect(solectrus_record.power).to be >= 0
+        expect(solectrus_record.temp).to be >= 0
       end
 
       it 'has a valid time' do

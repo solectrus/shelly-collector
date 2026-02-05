@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.12.2
+      - Faraday v2.14.0
   response:
     status:
       code: 200
@@ -17,11 +17,11 @@ http_interactions:
       server:
       - nginx/1.18.0 (Ubuntu)
       date:
-      - Wed, 15 Jan 2025 14:38:31 GMT
+      - Thu, 05 Feb 2026 04:20:28 GMT
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '1433'
+      - '1626'
       connection:
       - keep-alive
       x-powered-by:
@@ -29,10 +29,10 @@ http_interactions:
       access-control-allow-origin:
       - "*"
       etag:
-      - W/"599-r6X+mEJWKfIezKoaY0bXniO4kKY"
+      - W/"65a-+V7bEOBX+5ej148G3mr6vMSLms8"
     body:
       encoding: UTF-8
-      string: '{"isok":true,"data":{"online":true,"device_status":{"_updated":"2025-01-15
-        14:38:22","id":"<SHELLY_DEVICE_ID>","temperature:0":{"id":0,"tC":47.5,"tF":117.6},"ts":1736951888.29,"bthome":{"errors":["bluetooth_disabled"]},"eth":{"ip":"192.168.178.83"},"ws":{"connected":false},"code":"SPEM-003CEBEU","mqtt":{"connected":false},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0},"serial":70465,"ble":{},"em:0":{"id":0,"a_act_power":232.1,"a_aprt_power":389.5,"a_current":1.661,"a_freq":50,"a_pf":0.6,"a_voltage":234.5,"b_act_power":153.6,"b_aprt_power":353.2,"b_current":1.503,"b_freq":50,"b_pf":0.43,"b_voltage":235.1,"c_act_power":124.3,"c_aprt_power":337.4,"c_current":1.438,"c_freq":50,"c_pf":0.37,"c_voltage":234.9,"total_act_power":509.977,"total_aprt_power":1080.095,"total_current":4.602,"user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":804960.02,"a_total_act_ret_energy":0.57,"b_total_act_energy":688094.52,"b_total_act_ret_energy":0.01,"c_total_act_energy":574760.91,"c_total_act_ret_energy":3856.74,"total_act":2067815.44,"total_act_ret":3857.31},"sys":{"available_updates":{"beta":{"version":"1.5.0-beta1"}},"mac":"34987A45A6A0","restart_required":false,"time":"14:16","unixtime":1736169379,"uptime":6941177,"ram_size":247552,"ram_free":129988,"fs_size":524288,"fs_free":180224,"cfg_rev":38,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"reset_reason":3},"modbus":{},"cloud":{"connected":true}}}}'
-  recorded_at: Wed, 15 Jan 2025 14:38:31 GMT
-recorded_with: VCR 6.3.1
+      string: '{"isok":true,"data":{"online":true,"device_status":{"emdata:0":{"a_total_act_energy":1832691.27,"a_total_act_ret_energy":1.06,"b_total_act_energy":1619275.92,"b_total_act_ret_energy":0.01,"c_total_act_energy":1357292.89,"c_total_act_ret_energy":9159.91,"total_act":4809260.08,"total_act_ret":9160.97,"id":0},"cloud":{"connected":true},"id":"<SHELLY_DEVICE_ID>","ts":1770265199.34,"_updated":"2026-02-05
+        04:20:14","mqtt":{"connected":false},"em:0":{"a_act_power":149.6,"a_aprt_power":347.8,"a_current":1.479,"a_freq":50,"a_pf":0.43,"a_voltage":235.2,"b_act_power":151.5,"b_aprt_power":362.2,"b_current":1.537,"b_freq":50,"b_pf":0.42,"b_voltage":235.8,"c_act_power":124.6,"c_aprt_power":343.8,"c_current":1.46,"c_freq":50,"c_pf":0.36,"c_voltage":235.6,"n_current":null,"total_act_power":425.696,"total_aprt_power":1053.785,"total_current":4.476,"id":0,"user_calibrated_phase":[]},"sys":{"time":"05:10","unixtime":1770264642,"mac":"34987A45A6A0","restart_required":false,"last_sync_ts":1770264642,"uptime":10919911,"ram_size":244544,"ram_free":114724,"ram_min_free":100028,"fs_size":524288,"fs_free":196608,"cfg_rev":46,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"modbus":{},"temperature:0":{"id":0,"tC":45,"tF":112.9},"eth":{"ip":"192.168.178.83","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"bthome":{"errors":["bluetooth_disabled"]},"serial":18616,"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ble":{},"ws":{"connected":false},"code":"SPEM-003CEBEU"}}}'
+  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
+recorded_with: VCR 6.4.0

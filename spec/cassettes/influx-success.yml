@@ -5,8 +5,8 @@ http_interactions:
     uri: http://<INFLUX_HOST>:8086/api/v2/write?bucket=<INFLUX_BUCKET>&org=<INFLUX_ORG>&precision=s
     body:
       encoding: UTF-8
-      string: my-shelly-measurement power=1343.772,power_a=504.5,power_b=447.7,power_c=391.6,response_duration=0i,temp=47.7
-        1737091338
+      string: my-shelly-measurement power=425.275,power_a=150.5,power_b=152.2,power_c=122.6,response_duration=38i,temp=45.8
+        1770265220
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -26,13 +26,13 @@ http_interactions:
       X-Influxdb-Build:
       - OSS
       X-Influxdb-Version:
-      - v2.7.11
+      - v2.8.0
       Date:
-      - Wed, 07 May 2025 07:38:07 GMT
+      - Thu, 05 Feb 2026 04:20:21 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Wed, 07 May 2025 07:38:07 GMT
+  recorded_at: Thu, 05 Feb 2026 04:20:21 GMT
 - request:
     method: get
     uri: http://<INFLUX_HOST>:8086/ping
@@ -58,11 +58,11 @@ http_interactions:
       X-Influxdb-Build:
       - OSS
       X-Influxdb-Version:
-      - v2.7.11
+      - v2.8.0
       Date:
-      - Wed, 07 May 2025 07:38:08 GMT
+      - Thu, 05 Feb 2026 04:20:27 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Wed, 07 May 2025 07:38:08 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Thu, 05 Feb 2026 04:20:27 GMT
+recorded_with: VCR 6.4.0
