@@ -12,9 +12,6 @@ gem 'faraday'
 # Faraday request timing (http://github.com/canaryup/faraday-request-timer)
 gem 'faraday-request-timer'
 
-# A fast JSON parser and serializer. (http://www.ohler.com/oj)
-gem 'oj'
-
 # CSV Reading and Writing (https://github.com/ruby/csv)
 gem 'csv'
 
