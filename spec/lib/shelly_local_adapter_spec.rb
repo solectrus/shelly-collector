@@ -30,7 +30,7 @@ describe ShellyLocalAdapter do
     subject(:solectrus_record) { adapter.solectrus_record }
 
     context 'when Shelly Pro 3EM', vcr: 'shelly-pro-3em' do
-      let(:shelly_host) { 'shelly-pro-3em' }
+      let(:shelly_host) { 'shelly-heatpump.home.arpa' }
 
       it 'has values' do
         expect(solectrus_record.power).to be > 0

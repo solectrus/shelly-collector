@@ -3,7 +3,7 @@ require 'config'
 
 describe Loop do
   let(:config) do
-    Config.from_env(shelly_cloud_server: nil, shelly_host: 'shelly-pro-3em')
+    Config.from_env(shelly_cloud_server: nil, shelly_host: 'shelly-heatpump.home.arpa')
   end
   let(:logger) { MemoryLogger.new }
 

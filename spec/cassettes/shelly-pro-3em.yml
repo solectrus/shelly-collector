@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://shelly-pro-3em/status
+    uri: http://shelly-heatpump.home.arpa/status
     body:
       encoding: US-ASCII
       string: ''
@@ -23,10 +23,10 @@ http_interactions:
     body:
       encoding: UTF-8
       string: Not Found
-  recorded_at: Thu, 05 Feb 2026 04:30:54 GMT
+  recorded_at: Sun, 08 Feb 2026 16:28:03 GMT
 - request:
     method: get
-    uri: http://shelly-pro-3em/rpc/Shelly.GetStatus
+    uri: http://shelly-heatpump.home.arpa/rpc/Shelly.GetStatus
     body:
       encoding: US-ASCII
       string: ''
@@ -48,14 +48,14 @@ http_interactions:
       - close
     body:
       encoding: UTF-8
-      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"em:0":{"id":0,"a_current":1.485,"a_voltage":235.0,"a_act_power":151.6,"a_aprt_power":348.7,"a_pf":0.43,"a_freq":50.0,"b_current":1.551,"b_voltage":235.4,"b_act_power":153.9,"b_aprt_power":364.9,"b_pf":0.42,"b_freq":50.0,"c_current":1.452,"c_voltage":235.5,"c_act_power":125.4,"c_aprt_power":341.5,"c_pf":0.37,"c_freq":50.0,"n_current":null,"total_current":4.487,"total_act_power":430.911,"total_aprt_power":1055.164,
-        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":1832716.36,"a_total_act_ret_energy":1.06,"b_total_act_energy":1619301.41,"b_total_act_ret_energy":0.01,"c_total_act_energy":1357313.74,"c_total_act_ret_energy":9159.91,"total_act":4809331.51,
-        "total_act_ret":9160.97},"eth":{"ip":"192.168.178.83","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"05:30","unixtime":1770265854,"last_sync_ts":1770264642,"uptime":11131105,"ram_size":244652,"ram_free":130080,"ram_min_free":100028,"fs_size":524288,"fs_free":196608,"cfg_rev":46,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"temperature:0":{"id":
-        0,"tC":45.7, "tF":114.2},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ws":{"connected":false}}'
-  recorded_at: Thu, 05 Feb 2026 04:30:54 GMT
+      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"em:0":{"id":0,"a_current":1.689,"a_voltage":234.1,"a_act_power":210.6,"a_aprt_power":395.2,"a_pf":0.53,"a_freq":49.9,"b_current":1.675,"b_voltage":234.3,"b_act_power":176.9,"b_aprt_power":392.5,"b_pf":0.45,"b_freq":49.9,"c_current":1.598,"c_voltage":234.1,"c_act_power":148.3,"c_aprt_power":373.8,"c_pf":0.40,"c_freq":49.9,"n_current":null,"total_current":4.962,"total_act_power":535.733,"total_aprt_power":1161.466,
+        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":1847604.83,"a_total_act_ret_energy":1.06,"b_total_act_energy":1634102.70,"b_total_act_ret_energy":0.01,"c_total_act_energy":1369734.54,"c_total_act_ret_energy":9164.01,"total_act":4851442.07,
+        "total_act_ret":9165.08},"eth":{"ip":"192.168.178.83","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"17:28","unixtime":1770568083,"last_sync_ts":1770567156,"uptime":11433338,"ram_size":244576,"ram_free":126260,"ram_min_free":100028,"fs_size":524288,"fs_free":196608,"cfg_rev":46,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"temperature:0":{"id":
+        0,"tC":45.8, "tF":114.5},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ws":{"connected":false}}'
+  recorded_at: Sun, 08 Feb 2026 16:28:03 GMT
 - request:
     method: get
-    uri: http://shelly-pro-3em/rpc/Shelly.GetStatus
+    uri: http://shelly-heatpump.home.arpa/rpc/Shelly.GetStatus
     body:
       encoding: US-ASCII
       string: ''
@@ -77,9 +77,9 @@ http_interactions:
       - close
     body:
       encoding: UTF-8
-      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"em:0":{"id":0,"a_current":1.481,"a_voltage":234.9,"a_act_power":151.5,"a_aprt_power":347.8,"a_pf":0.44,"a_freq":50.0,"b_current":1.549,"b_voltage":235.4,"b_act_power":154.7,"b_aprt_power":364.4,"b_pf":0.42,"b_freq":50.0,"c_current":1.455,"c_voltage":235.3,"c_act_power":125.1,"c_aprt_power":342.1,"c_pf":0.37,"c_freq":50.0,"n_current":null,"total_current":4.484,"total_act_power":431.315,"total_aprt_power":1054.272,
-        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":1832716.36,"a_total_act_ret_energy":1.06,"b_total_act_energy":1619301.41,"b_total_act_ret_energy":0.01,"c_total_act_energy":1357313.74,"c_total_act_ret_energy":9159.91,"total_act":4809331.51,
-        "total_act_ret":9160.97},"eth":{"ip":"192.168.178.83","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"05:30","unixtime":1770265854,"last_sync_ts":1770264642,"uptime":11131105,"ram_size":244648,"ram_free":130052,"ram_min_free":100028,"fs_size":524288,"fs_free":196608,"cfg_rev":46,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"temperature:0":{"id":
-        0,"tC":45.7, "tF":114.2},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ws":{"connected":false}}'
-  recorded_at: Thu, 05 Feb 2026 04:30:54 GMT
+      string: '{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":true},"em:0":{"id":0,"a_current":1.689,"a_voltage":234.1,"a_act_power":210.6,"a_aprt_power":395.2,"a_pf":0.53,"a_freq":49.9,"b_current":1.675,"b_voltage":234.3,"b_act_power":176.9,"b_aprt_power":392.5,"b_pf":0.45,"b_freq":49.9,"c_current":1.598,"c_voltage":234.1,"c_act_power":148.3,"c_aprt_power":373.8,"c_pf":0.40,"c_freq":49.9,"n_current":null,"total_current":4.962,"total_act_power":535.733,"total_aprt_power":1161.466,
+        "user_calibrated_phase":[]},"emdata:0":{"id":0,"a_total_act_energy":1847604.83,"a_total_act_ret_energy":1.06,"b_total_act_energy":1634102.70,"b_total_act_ret_energy":0.01,"c_total_act_energy":1369734.54,"c_total_act_ret_energy":9164.01,"total_act":4851442.07,
+        "total_act_ret":9165.08},"eth":{"ip":"192.168.178.83","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"modbus":{},"mqtt":{"connected":false},"sys":{"mac":"34987A45A6A0","restart_required":false,"time":"17:28","unixtime":1770568083,"last_sync_ts":1770567156,"uptime":11433338,"ram_size":244576,"ram_free":126280,"ram_min_free":100028,"fs_size":524288,"fs_free":196608,"cfg_rev":46,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"temperature:0":{"id":
+        0,"tC":45.8, "tF":114.5},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ws":{"connected":false}}'
+  recorded_at: Sun, 08 Feb 2026 16:28:03 GMT
 recorded_with: VCR 6.4.0
