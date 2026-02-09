@@ -90,6 +90,6 @@ end
 
 class FailingFluxWriter
   def push(_record)
-    raise InfluxDB2::InfluxError.new(message: nil, code: nil, reference: nil, retry_after: nil)
+    raise Faraday::ServerError, 'Internal Server Error'
   end
 end

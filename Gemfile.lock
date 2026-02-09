@@ -8,6 +8,7 @@ GEM
     base64 (0.3.0)
     bigdecimal (4.0.1)
     coderay (1.1.3)
+    connection_pool (3.0.2)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -21,6 +22,9 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
+    faraday-net_http_persistent (2.3.1)
+      faraday (~> 2.5)
+      net-http-persistent (>= 4.0.4, < 5)
     faraday-request-timer (0.2.0)
       faraday (>= 0.9.0)
     ffi (1.17.3)
@@ -45,8 +49,6 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashdiff (1.2.1)
-    influxdb-client (3.2.0)
-      csv
     io-console (0.8.2)
     json (2.18.1)
     language_server-protocol (3.17.0.5)
@@ -61,6 +63,8 @@ GEM
     nenv (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
+    net-http-persistent (4.0.8)
+      connection_pool (>= 2.2.4, < 4)
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -152,9 +156,9 @@ DEPENDENCIES
   csv
   dotenv
   faraday
+  faraday-net_http_persistent
   faraday-request-timer
   guard-rspec
-  influxdb-client
   rake
   rspec
   rubocop

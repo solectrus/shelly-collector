@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 # Loads environment variables from `.env`. (https://github.com/bkeepers/dotenv)
 gem 'dotenv'
 
-# Ruby library for InfluxDB 2. (https://github.com/influxdata/influxdb-client-ruby)
-gem 'influxdb-client'
-
 # HTTP/REST API client library. (https://lostisland.github.io/faraday)
 gem 'faraday'
+
+# Persistent HTTP connections for Faraday (https://github.com/lostisland/faraday-net_http_persistent)
+gem 'faraday-net_http_persistent'
 
 # Faraday request timing (http://github.com/canaryup/faraday-request-timer)
 gem 'faraday-request-timer'

@@ -1,3 +1,6 @@
+require 'faraday'
+require 'faraday/net_http_persistent'
+
 class FluxWriter
   def initialize(config)
     @config = config
@@ -6,22 +9,28 @@ class FluxWriter
   attr_reader :config
 
   def ready?
-    influx_client.ping.status == 'ok'
+    connection.get('/ping').success?
+  rescue Faraday::Error
+    false
   end
 
   def push(record)
     return unless record
 
-    write_api.write(
-      data: point(record),
-      bucket: config.influx_bucket,
-      org: config.influx_org,
-    )
+    connection.post(write_path) do |req|
+      req.headers['Content-Type'] = 'text/plain'
+      req.body = line_protocol(record)
+    end
   end
 
   private
 
-  def point(record)
+  def line_protocol(record)
+    fields = build_fields(record)
+    "#{config.influx_measurement} #{format_fields(fields)} #{record.time}"
+  end
+
+  def build_fields(record)
     fields = record.to_hash
 
     # Convert power fields to integers if configured
@@ -33,30 +42,26 @@ class FluxWriter
       end
     end
 
-    InfluxDB2::Point.new(
-      name: influx_measurement,
-      time: record.time,
-      fields: fields,
-      # TODO: Add tags, so just ONE Measurement would be enough
-      # tags: { mac: record.mac }.compact,
-    )
+    fields
   end
 
-  def influx_measurement
-    config.influx_measurement
+  def format_fields(fields)
+    fields.map { |k, v| "#{k}=#{format_value(v)}" }.join(',')
   end
 
-  def influx_client
-    @influx_client ||=
-      InfluxDB2::Client.new(
-        config.influx_url,
-        config.influx_token,
-        use_ssl: config.influx_schema == :https,
-        precision: InfluxDB2::WritePrecision::SECOND,
-      )
+  def format_value(value)
+    value.is_a?(Integer) ? "#{value}i" : value.to_s
   end
 
-  def write_api
-    @write_api ||= influx_client.create_write_api
+  def write_path
+    "/api/v2/write?#{URI.encode_www_form(bucket: config.influx_bucket, org: config.influx_org, precision: 's')}"
+  end
+
+  def connection
+    @connection ||= Faraday.new(url: config.influx_url) do |f|
+      f.request :authorization, 'Token', config.influx_token
+      f.response :raise_error
+      f.adapter :net_http_persistent
+    end
   end
 end
