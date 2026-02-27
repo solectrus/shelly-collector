@@ -12,6 +12,11 @@ class StdoutLogger
     end
   end
 
+  def success(message)
+    # Green text by using ANSI escape code
+    puts "\e[32m#{message}\e[0m"
+  end
+
   def warn(message)
     # Yellow text by using ANSI escape code
     puts "\e[33m#{message}\e[0m"

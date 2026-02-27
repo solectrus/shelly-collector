@@ -3,12 +3,19 @@ require 'config'
 
 describe FluxWriter do
   let(:config) do
-    instance_double(
+    cfg = instance_double(
       Config,
       influx_bucket: 'test_bucket',
       influx_org: 'test_org',
       influx_measurement: 'test_measurement',
-      influx_power_data_type: power_data_type,
+    )
+    allow(cfg).to receive(:device_config_for).and_return(device_config)
+    cfg
+  end
+  let(:device_config) do
+    DeviceConfig.new(
+      device_id: 'test', host: nil, password: nil, measurement: 'test_measurement',
+      invert_power: false, influx_mode: :default, influx_power_data_type: power_data_type,
     )
   end
   let(:power_data_type) { 'Float' }
@@ -92,6 +99,74 @@ describe FluxWriter do
 
         expect(result).to include('power=42i')
         expect(result).to include('temp=25.5')
+      end
+    end
+
+    context 'when record has a measurement' do
+      let(:power_data_type) { 'Float' }
+      let(:record) do
+        SolectrusRecord.new(
+          id: 1,
+          time: 1_700_000_000,
+          payload: { power: 42.7 },
+          measurement: 'custom_meter',
+        )
+      end
+
+      it 'uses record measurement instead of config' do
+        result = flux_writer.send(:line_protocol, record)
+
+        expect(result).to start_with('custom_meter ')
+        expect(result).not_to include('test_measurement')
+      end
+    end
+
+    context 'when record has no measurement' do
+      let(:power_data_type) { 'Float' }
+      let(:record) do
+        SolectrusRecord.new(
+          id: 1,
+          time: 1_700_000_000,
+          payload: { power: 42.7 },
+        )
+      end
+
+      it 'falls back to config measurement' do
+        result = flux_writer.send(:line_protocol, record)
+
+        expect(result).to start_with('test_measurement ')
+      end
+    end
+
+    context 'when per-device power data type differs' do
+      let(:power_data_type) { 'Float' }
+
+      before do
+        integer_dc = DeviceConfig.new(
+          device_id: 'dev2', host: nil, password: nil, measurement: 'meter_int',
+          invert_power: false, influx_mode: :default, influx_power_data_type: 'Integer',
+        )
+        allow(config).to receive(:device_config_for).with('meter_int').and_return(integer_dc)
+      end
+
+      it 'uses Integer for matching device' do
+        record = SolectrusRecord.new(
+          id: 1, time: 1_700_000_000,
+          payload: { power: 42.7 }, measurement: 'meter_int',
+        )
+        result = flux_writer.send(:line_protocol, record)
+
+        expect(result).to include('power=43i')
+      end
+
+      it 'uses Float for other devices' do
+        record = SolectrusRecord.new(
+          id: 1, time: 1_700_000_000,
+          payload: { power: 42.7 }, measurement: 'test_measurement',
+        )
+        result = flux_writer.send(:line_protocol, record)
+
+        expect(result).to include('power=42.7')
       end
     end
 

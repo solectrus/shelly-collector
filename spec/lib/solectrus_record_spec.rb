@@ -49,6 +49,19 @@ describe SolectrusRecord do
     end
   end
 
+  describe '#measurement' do
+    it 'defaults to nil' do
+      expect(record.measurement).to be_nil
+    end
+
+    it 'returns the assigned measurement' do
+      record_with_measurement = described_class.new(
+        id: 1, time: Time.now, payload: payload, measurement: 'my_meter',
+      )
+      expect(record_with_measurement.measurement).to eq('my_meter')
+    end
+  end
+
   %i[temp power power_a power_b power_c response_duration].each do |method|
     describe "##{method}" do
       it "returns the value of #{method} from the payload" do

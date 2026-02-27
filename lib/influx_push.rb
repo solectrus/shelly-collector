@@ -10,6 +10,7 @@ class InfluxPush
     @config = config
     @queue = queue
     @flux_writer = FluxWriter.new(config)
+    @pushed = []
   end
 
   attr_reader :config, :queue, :flux_writer
@@ -32,12 +33,32 @@ class InfluxPush
 
   def push(record)
     flux_writer.push(record)
-    logger.info "Successfully pushed record ##{record.id} to InfluxDB"
+    @pushed << record
+    log_push_summary if queue.empty?
   rescue StandardError => e
+    log_push_summary
     error_handling(record, e)
 
     # Wait a bit before trying again
     sleep(5)
+  end
+
+  def log_push_summary
+    return if @pushed.empty?
+
+    if @pushed.size == 1
+      logger.info "Successfully pushed record ##{@pushed.first.id}#{measurement_suffix} to InfluxDB"
+    else
+      logger.info "Successfully pushed #{@pushed.size} points for ##{@pushed.first.id} to InfluxDB"
+    end
+
+    @pushed = []
+  end
+
+  def measurement_suffix
+    return unless config.multi_device?
+
+    " for #{@pushed.first.measurement || config.influx_measurement}"
   end
 
   def error_handling(record, error)

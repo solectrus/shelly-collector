@@ -74,8 +74,10 @@ describe InfluxPush do
   def assert_success(num_records)
     yield
 
-    (1..num_records).each do |i|
-      expect(logger.info_messages).to include "Successfully pushed record ##{i} to InfluxDB"
+    if num_records == 1
+      expect(logger.info_messages).to include(/Successfully pushed record #1.* to InfluxDB/)
+    else
+      expect(logger.info_messages).to include(/Successfully pushed #{num_records} points for #\d+ to InfluxDB/)
     end
 
     expect(queue.length).to eq(0)

@@ -17,11 +17,11 @@ describe Loop do
         end
       end
 
-      expect(logger.info_messages).to include(/Got record #1/)
+      expect(logger.success_messages).to include(/Power/)
     end
 
     it 'handles Interrupt' do
-      allow(config.adapter).to receive(:raw_response).and_raise(SystemExit)
+      allow(config.adapter).to receive(:solectrus_records).and_raise(SystemExit)
 
       VCR.use_cassette('influx-success') do
         VCR.use_cassette('shelly-pro-3em') do
@@ -33,13 +33,14 @@ describe Loop do
     end
 
     it 'handles errors' do
-      allow(config.adapter).to receive(:raw_response).and_raise(StandardError)
+      VCR.turned_off do
+        stub_request(:get, %r{localhost:8086/ping}).to_return(status: 204)
+        stub_request(:get, /shelly-heatpump/).to_raise(StandardError.new('connection failed'))
 
-      VCR.use_cassette('influx-success') do
         described_class.start(config:, max_count: 1, max_wait: 1)
       end
 
-      expect(logger.error_messages).to include(/Error getting data/)
+      expect(logger.error_messages).to include(/Error,/)
     end
   end
 end

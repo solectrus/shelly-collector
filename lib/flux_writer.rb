@@ -27,14 +27,15 @@ class FluxWriter
 
   def line_protocol(record)
     fields = build_fields(record)
-    "#{config.influx_measurement} #{format_fields(fields)} #{record.time}"
+    measurement = record.measurement || config.influx_measurement
+    "#{measurement} #{format_fields(fields)} #{record.time}"
   end
 
   def build_fields(record)
     fields = record.to_hash
 
-    # Convert power fields to integers if configured
-    if config.influx_power_data_type == 'Integer'
+    # Convert power fields to integers if configured (per-device or global)
+    if config.device_config_for(record.measurement).influx_power_data_type == 'Integer'
       fields.each do |key, value|
         next unless key.to_s.start_with?('power') && value.is_a?(Numeric)
 

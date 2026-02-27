@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.14.0
+      - Faraday v2.14.1
   response:
     status:
       code: 200
@@ -17,11 +17,11 @@ http_interactions:
       server:
       - nginx/1.18.0 (Ubuntu)
       date:
-      - Thu, 05 Feb 2026 04:20:28 GMT
+      - Fri, 27 Feb 2026 09:54:02 GMT
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '1626'
+      - '1622'
       connection:
       - keep-alive
       x-powered-by:
@@ -29,10 +29,10 @@ http_interactions:
       access-control-allow-origin:
       - "*"
       etag:
-      - W/"65a-+V7bEOBX+5ej148G3mr6vMSLms8"
+      - W/"656-BrRzWegJFUr6DHm91LLRNyjDQXM"
     body:
       encoding: UTF-8
-      string: '{"isok":true,"data":{"online":true,"device_status":{"emdata:0":{"a_total_act_energy":1832691.27,"a_total_act_ret_energy":1.06,"b_total_act_energy":1619275.92,"b_total_act_ret_energy":0.01,"c_total_act_energy":1357292.89,"c_total_act_ret_energy":9159.91,"total_act":4809260.08,"total_act_ret":9160.97,"id":0},"cloud":{"connected":true},"id":"<SHELLY_DEVICE_ID>","ts":1770265199.34,"_updated":"2026-02-05
-        04:20:14","mqtt":{"connected":false},"em:0":{"a_act_power":149.6,"a_aprt_power":347.8,"a_current":1.479,"a_freq":50,"a_pf":0.43,"a_voltage":235.2,"b_act_power":151.5,"b_aprt_power":362.2,"b_current":1.537,"b_freq":50,"b_pf":0.42,"b_voltage":235.8,"c_act_power":124.6,"c_aprt_power":343.8,"c_current":1.46,"c_freq":50,"c_pf":0.36,"c_voltage":235.6,"n_current":null,"total_act_power":425.696,"total_aprt_power":1053.785,"total_current":4.476,"id":0,"user_calibrated_phase":[]},"sys":{"time":"05:10","unixtime":1770264642,"mac":"34987A45A6A0","restart_required":false,"last_sync_ts":1770264642,"uptime":10919911,"ram_size":244544,"ram_free":114724,"ram_min_free":100028,"fs_size":524288,"fs_free":196608,"cfg_rev":46,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.4-beta2"}},"reset_reason":3,"utc_offset":3600},"modbus":{},"temperature:0":{"id":0,"tC":45,"tF":112.9},"eth":{"ip":"192.168.178.83","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"bthome":{"errors":["bluetooth_disabled"]},"serial":18616,"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ble":{},"ws":{"connected":false},"code":"SPEM-003CEBEU"}}}'
-  recorded_at: Thu, 05 Feb 2026 04:20:28 GMT
+      string: '{"isok":true,"data":{"online":true,"device_status":{"sys":{"time":"10:30","unixtime":1772184623,"mac":"34987A45A6A0","restart_required":false,"last_sync_ts":1772184623,"uptime":1431878,"ram_size":244580,"ram_free":127760,"ram_min_free":108060,"fs_size":524288,"fs_free":196608,"cfg_rev":48,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"1.7.5-beta1"}},"reset_reason":3,"utc_offset":3600},"modbus":{},"id":"<SHELLY_DEVICE_ID>","temperature:0":{"id":0,"tC":44.1,"tF":111.3},"cloud":{"connected":true},"emdata:0":{"a_total_act_energy":1920690.82,"a_total_act_ret_energy":1.07,"b_total_act_energy":1705744.93,"b_total_act_ret_energy":0.01,"c_total_act_energy":1429853.71,"c_total_act_ret_energy":9269.48,"total_act":5056289.46,"total_act_ret":9270.56,"id":0},"eth":{"ip":"192.168.178.54","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]},"bthome":{"errors":["bluetooth_disabled"]},"ts":1772186040.69,"serial":2642,"_updated":"2026-02-27
+        09:54:01","mqtt":{"connected":true},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"em:0":{"a_act_power":446.5,"a_aprt_power":630,"a_current":2.67,"a_freq":50,"a_pf":0.74,"a_voltage":235.9,"b_act_power":472.4,"b_aprt_power":653.4,"b_current":2.767,"b_freq":50,"b_pf":0.72,"b_voltage":236.2,"c_act_power":445.1,"c_aprt_power":596.5,"c_current":2.542,"c_freq":50,"c_pf":0.71,"c_voltage":235,"n_current":null,"total_act_power":1363.993,"total_aprt_power":1879.842,"total_current":7.979,"id":0,"user_calibrated_phase":[]},"ws":{"connected":false},"ble":{},"code":"SPEM-003CEBEU"}}}'
+  recorded_at: Fri, 27 Feb 2026 09:54:02 GMT
 recorded_with: VCR 6.4.0

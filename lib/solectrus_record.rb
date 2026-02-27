@@ -1,13 +1,14 @@
 class SolectrusRecord
-  def initialize(id:, time:, payload:, mac: nil, response_duration: nil)
+  def initialize(id:, time:, payload:, mac: nil, response_duration: nil, measurement: nil) # rubocop:disable Metrics/ParameterLists
     @id = id
     @time = time
     @payload = payload
     @mac = mac
     @response_duration = response_duration
+    @measurement = measurement
   end
 
-  attr_reader :id, :time, :mac
+  attr_reader :id, :time, :mac, :measurement
 
   %i[
     temp

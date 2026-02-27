@@ -7,8 +7,8 @@ class ShellyResponseParser
   end
   attr_reader :data, :invert_power
 
-  def solectrus_record(id: 1, response_duration: nil)
-    SolectrusRecord.new(id:, mac:, time:, payload: record_hash.merge(response_duration:))
+  def solectrus_record(id: 1, response_duration: nil, measurement: nil)
+    SolectrusRecord.new(id:, mac:, time:, payload: record_hash.merge(response_duration:), measurement:)
   end
 
   private
@@ -35,10 +35,13 @@ class ShellyResponseParser
     (
       data['unixtime'] ||
         data.dig('sys', 'unixtime') ||
-        device_status&.dig('sys', 'unixtime') ||
-        device_status&.[]('ts') ||
+        device_status_time ||
         Time.now
     ).to_i
+  end
+
+  def device_status_time
+    device_status&.[]('ts') || device_status&.dig('sys', 'unixtime')
   end
 
   def temp
