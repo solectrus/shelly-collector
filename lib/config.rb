@@ -33,8 +33,8 @@ DEFAULTS = {
 }.freeze
 
 Config =
-  Struct.new(*KEYS, keyword_init: true) do
-    def initialize(*options)
+  Struct.new(*KEYS) do
+    def initialize(**options)
       super
 
       set_defaults_and_types
@@ -138,26 +138,25 @@ Config =
       %w[Float Integer].include?(data_type) || throw("INFLUX_POWER_DATA_TYPE is invalid: #{data_type}")
     end
 
-    def self.from_env(options = {}) # rubocop:disable Metrics/AbcSize
+    def self.from_env(**) # rubocop:disable Metrics/AbcSize
       new(
-        {
-          shelly_host: ENV.fetch('SHELLY_HOST', nil),
-          shelly_password: ENV.fetch('SHELLY_PASSWORD', nil),
-          shelly_cloud_server: ENV.fetch('SHELLY_CLOUD_SERVER', nil),
-          shelly_device_id: ENV.fetch('SHELLY_DEVICE_ID', nil),
-          shelly_auth_key: ENV.fetch('SHELLY_AUTH_KEY', nil),
-          shelly_interval: ENV.fetch('SHELLY_INTERVAL', nil),
-          shelly_invert_power: ENV.fetch('SHELLY_INVERT_POWER', nil).to_s.downcase == 'true',
-          influx_host: ENV.fetch('INFLUX_HOST'),
-          influx_schema: ENV.fetch('INFLUX_SCHEMA', nil),
-          influx_port: ENV.fetch('INFLUX_PORT', nil),
-          influx_token: ENV.fetch('INFLUX_TOKEN'),
-          influx_org: ENV.fetch('INFLUX_ORG'),
-          influx_bucket: ENV.fetch('INFLUX_BUCKET', nil),
-          influx_measurement: ENV.fetch('INFLUX_MEASUREMENT', nil),
-          influx_mode: ENV.fetch('INFLUX_MODE', nil)&.to_sym,
-          influx_power_data_type: ENV.fetch('INFLUX_POWER_DATA_TYPE', nil),
-        }.merge(options),
+        shelly_host: ENV.fetch('SHELLY_HOST', nil),
+        shelly_password: ENV.fetch('SHELLY_PASSWORD', nil),
+        shelly_cloud_server: ENV.fetch('SHELLY_CLOUD_SERVER', nil),
+        shelly_device_id: ENV.fetch('SHELLY_DEVICE_ID', nil),
+        shelly_auth_key: ENV.fetch('SHELLY_AUTH_KEY', nil),
+        shelly_interval: ENV.fetch('SHELLY_INTERVAL', nil),
+        shelly_invert_power: ENV.fetch('SHELLY_INVERT_POWER', nil).to_s.downcase == 'true',
+        influx_host: ENV.fetch('INFLUX_HOST'),
+        influx_schema: ENV.fetch('INFLUX_SCHEMA', nil),
+        influx_port: ENV.fetch('INFLUX_PORT', nil),
+        influx_token: ENV.fetch('INFLUX_TOKEN'),
+        influx_org: ENV.fetch('INFLUX_ORG'),
+        influx_bucket: ENV.fetch('INFLUX_BUCKET', nil),
+        influx_measurement: ENV.fetch('INFLUX_MEASUREMENT', nil),
+        influx_mode: ENV.fetch('INFLUX_MODE', nil)&.to_sym,
+        influx_power_data_type: ENV.fetch('INFLUX_POWER_DATA_TYPE', nil),
+        **,
       )
     end
   end

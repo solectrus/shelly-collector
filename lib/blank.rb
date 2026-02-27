@@ -1,5 +1,5 @@
 # To not depend on ActiveSupport, we copy the following methods from ActiveSupport:
-# https://github.com/rails/rails/blob/v7.1.3/activesupport/lib/active_support/core_ext/object/blank.rb
+# https://github.com/rails/rails/blob/v8.1.2/activesupport/lib/active_support/core_ext/object/blank.rb
 
 class Object
   def blank?
@@ -15,7 +15,7 @@ class Object
   end
 end
 
-class String
+class String # rubocop:disable Style/OneClassPerFile
   BLANK_RE = /\A[[:space:]]*\z/
 
   def blank?
