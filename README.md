@@ -61,6 +61,32 @@ INFLUX_POWER_DATA_TYPE=Integer
 
 This will affect all power-related fields (`power`, `power_a`, `power_b`, `power_c`) while keeping other fields like `temp` and `response_duration` as floats. This is useful when you previously stored power values as integers and want to avoid InfluxDB type conflicts.
 
+## Multiple devices
+
+A single collector instance can handle multiple Shelly devices. Use comma-separated values for `SHELLY_HOST` (local) or `SHELLY_DEVICE_ID` (cloud) together with a matching list of `INFLUX_MEASUREMENT` names. Each device writes to its own measurement in InfluxDB.
+
+- Local devices are queried in parallel (one HTTP request per device).
+- Cloud devices are fetched in a single batch request (v2 API, automatically split into chunks of 10).
+
+Per-device options can be set either as a single value (applied to all devices) or as a comma-separated list matching the number of devices: `SHELLY_PASSWORD` (local only), `SHELLY_INVERT_POWER`, `INFLUX_MODE`, `INFLUX_POWER_DATA_TYPE`.
+
+The following settings always apply to all devices and cannot be set per device: `SHELLY_INTERVAL`, `SHELLY_CLOUD_SERVER`, `SHELLY_AUTH_KEY`, and all InfluxDB connection settings (`INFLUX_HOST`, `INFLUX_PORT`, `INFLUX_SCHEMA`, `INFLUX_TOKEN`, `INFLUX_ORG`, `INFLUX_BUCKET`). Mixing local and cloud devices in one instance is not supported — use separate containers for that.
+
+Example (local, two devices):
+
+```bash
+SHELLY_HOST=192.168.1.10,192.168.1.20
+SHELLY_PASSWORD=pass1,
+INFLUX_MEASUREMENT=meter1,meter2
+```
+
+Example (cloud, two devices):
+
+```bash
+SHELLY_DEVICE_ID=id1,id2
+INFLUX_MEASUREMENT=meter1,meter2
+```
+
 ## License
 
 Copyright (c) 2024-2026 Georg Ledermann, released under the MIT License
