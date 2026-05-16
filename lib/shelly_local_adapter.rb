@@ -4,7 +4,7 @@ require 'batch_formatting'
 require 'forwardable'
 require 'faraday'
 require 'faraday-request-timer'
-require 'digest_auth'
+require 'http_auth'
 
 class ShellyLocalAdapter
   extend Forwardable
@@ -95,7 +95,7 @@ class ShellyLocalAdapter
       f.options.open_timeout = TIMEOUT
 
       if device_config.password.present?
-        f.request :digest_auth,
+        f.request :http_auth,
                   username: 'admin',
                   password: device_config.password
       end

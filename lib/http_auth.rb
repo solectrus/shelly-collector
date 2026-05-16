@@ -2,7 +2,13 @@ require 'faraday'
 require 'digest'
 require 'securerandom'
 
-class DigestAuth < Faraday::Middleware
+# Faraday middleware that authenticates against password-protected Shelly devices.
+#
+# Shelly Gen1 devices (e.g. Shelly 3EM) use HTTP Basic auth, while Gen2+ devices
+# use HTTP Digest auth. The scheme is not known up front, so the first request is
+# sent unauthenticated and the scheme is taken from the device's WWW-Authenticate
+# response header.
+class HttpAuth < Faraday::Middleware
   def initialize(app, username:, password:)
     super(app)
     @username = username
@@ -24,26 +30,38 @@ class DigestAuth < Faraday::Middleware
 
   def retry_with_auth(response, env)
     auth_header = response.headers['www-authenticate']
-    params = parse_www_authenticate(auth_header)
 
-    new_env = build_authenticated_env(env, params)
+    new_env = build_authenticated_env(env, auth_header)
     authenticated_response = @app.call(new_env)
 
     if authenticated_response.status == 401
-      raise Faraday::UnauthorizedError, 'Digest authentication failed: invalid username or password'
+      raise Faraday::UnauthorizedError, 'Authentication failed: invalid username or password'
     end
 
     authenticated_response
   end
 
-  def build_authenticated_env(env, params)
-    auth_value = build_auth_header(env, params)
+  def build_authenticated_env(env, auth_header)
     new_env = env.dup
-    new_env.request_headers['Authorization'] = "Digest #{auth_value}"
+    new_env.request_headers['Authorization'] = authorization(env, auth_header)
     new_env
   end
 
-  def build_auth_header(env, params)
+  # Picks the auth scheme requested by the device (Basic for Gen1, Digest for Gen2+)
+  def authorization(env, auth_header)
+    if auth_header.match?(/\ABasic\b/i)
+      basic_authorization
+    else
+      digest_authorization(env, parse_www_authenticate(auth_header))
+    end
+  end
+
+  def basic_authorization
+    credentials = ["#{@username}:#{@password}"].pack('m0')
+    "Basic #{credentials}"
+  end
+
+  def digest_authorization(env, params)
     @nc += 1
     nc_hex = format('%08x', @nc)
     cnonce = SecureRandom.hex(8)
@@ -52,10 +70,10 @@ class DigestAuth < Faraday::Middleware
     ha2 = Digest::SHA256.hexdigest("#{env.method.to_s.upcase}:#{env.url.request_uri}")
     response_hash = Digest::SHA256.hexdigest("#{ha1}:#{params['nonce']}:#{nc_hex}:#{cnonce}:#{params['qop']}:#{ha2}")
 
-    build_auth_value(env, params, nc_hex, cnonce, response_hash)
+    "Digest #{digest_value(env, params, nc_hex, cnonce, response_hash)}"
   end
 
-  def build_auth_value(env, params, nc_hex, cnonce, response_hash)
+  def digest_value(env, params, nc_hex, cnonce, response_hash)
     [
       "username=\"#{@username}\"",
       "realm=\"#{params['realm']}\"",
@@ -74,4 +92,4 @@ class DigestAuth < Faraday::Middleware
   end
 end
 
-Faraday::Request.register_middleware digest_auth: -> { DigestAuth }
+Faraday::Request.register_middleware http_auth: -> { HttpAuth }

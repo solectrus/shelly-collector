@@ -1,6 +1,6 @@
-require 'digest_auth'
+require 'http_auth'
 
-describe DigestAuth do
+describe HttpAuth do
   let(:app) { double }
   let(:middleware) { described_class.new(app, username: 'username', password: 'password') }
 
@@ -21,13 +21,33 @@ describe DigestAuth do
       expect(middleware.call(env)).to eq(response)
     end
 
-    it 'retries with digest auth on 401' do
+    it 'retries with digest auth on 401 (Gen2+)' do
       auth_header = 'Digest realm="test", nonce="123", qop="auth"'
       unauthorized = instance_double(Faraday::Response, status: 401, headers: { 'www-authenticate' => auth_header })
       success = instance_double(Faraday::Response, status: 200)
-      allow(app).to receive(:call).and_return(unauthorized, success)
+      retry_env = nil
+      allow(app).to receive(:call) do |called_env|
+        retry_env = called_env
+        called_env.request_headers['Authorization'] ? success : unauthorized
+      end
 
       expect(middleware.call(env)).to eq(success)
+      expect(retry_env.request_headers['Authorization']).to start_with('Digest ')
+    end
+
+    it 'retries with basic auth on 401 (Gen1)' do
+      auth_header = 'Basic realm="test"'
+      unauthorized = instance_double(Faraday::Response, status: 401, headers: { 'www-authenticate' => auth_header })
+      success = instance_double(Faraday::Response, status: 200)
+      retry_env = nil
+      allow(app).to receive(:call) do |called_env|
+        retry_env = called_env
+        called_env.request_headers['Authorization'] ? success : unauthorized
+      end
+
+      expect(middleware.call(env)).to eq(success)
+      expect(retry_env.request_headers['Authorization'])
+        .to eq("Basic #{['username:password'].pack('m0')}")
     end
 
     it 'raises error on auth failure' do
