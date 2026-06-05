@@ -59,3 +59,8 @@ RSpec/NestedGroups:
 
 RSpec/NoExpectationExample:
   Enabled: false
+
+RSpec/ExpectActual:
+  # blank_spec deliberately tests String literals (the value under test)
+  Exclude:
+    - spec/lib/blank_spec.rb
