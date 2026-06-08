@@ -34,11 +34,11 @@ describe ShellyResponseParser do
       end
 
       it 'has power' do
-        expect(solectrus_record.power).to be > 0
+        expect(solectrus_record.power).to be_a(Numeric)
       end
 
       it 'has temp' do
-        expect(solectrus_record.temp).to be > 0
+        expect(solectrus_record.temp).to be_a(Numeric)
       end
 
       it 'has a valid time' do

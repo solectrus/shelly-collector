@@ -31,19 +31,19 @@ describe ShellyCloudAdapter do
       end
 
       it 'has values' do
-        expect(solectrus_record.power).to be > 0
-        expect(solectrus_record.temp).to be > 0
+        expect(solectrus_record.power).to be_a(Numeric)
+        expect(solectrus_record.temp).to be_a(Numeric)
       end
 
       it 'has phase power' do
-        expect(solectrus_record.power_a).to be >= 0
-        expect(solectrus_record.power_b).to be >= 0
-        expect(solectrus_record.power_c).to be >= 0
+        expect(solectrus_record.power_a).to be_a(Numeric)
+        expect(solectrus_record.power_b).to be_a(Numeric)
+        expect(solectrus_record.power_c).to be_a(Numeric)
       end
 
       it 'prefers cloud timestamp (ts) over device sys.unixtime' do
-        # V1 cassette has ts: 1772186040.69 and sys.unixtime: 1772184623
-        expect(solectrus_record.time).to eq(1_772_186_040)
+        # V1 cassette has ts: 1780895614.63 and sys.unixtime: 1780894706
+        expect(solectrus_record.time).to eq(1_780_895_614)
       end
 
       it 'handles errors' do

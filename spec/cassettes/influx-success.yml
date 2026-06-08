@@ -5,11 +5,11 @@ http_interactions:
     uri: http://<INFLUX_HOST>:8086/api/v2/write?bucket=<INFLUX_BUCKET>&org=<INFLUX_ORG>&precision=s
     body:
       encoding: UTF-8
-      string: my-shelly-measurement temp=46.0,power=1616.214,power_a=556.9,power_b=550.4,power_c=508.9,response_duration=70i
-        1770636605
+      string: my-shelly-measurement temp=46.2,power=16.2,power_a=13.2,power_b=4.2,power_c=-1.2,response_duration=0i
+        1780896508
     headers:
       User-Agent:
-      - Faraday v2.14.1
+      - Faraday v2.14.2
       Content-Type:
       - text/plain
       Authorization:
@@ -22,13 +22,13 @@ http_interactions:
       x-influxdb-build:
       - OSS
       x-influxdb-version:
-      - v2.8.0
+      - v2.9.1
       date:
-      - Mon, 09 Feb 2026 11:30:05 GMT
+      - Mon, 08 Jun 2026 05:32:11 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Mon, 09 Feb 2026 11:30:05 GMT
+  recorded_at: Mon, 08 Jun 2026 05:32:11 GMT
 - request:
     method: get
     uri: http://<INFLUX_HOST>:8086/ping
@@ -37,7 +37,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.14.1
+      - Faraday v2.14.2
       Authorization:
       - Token <INFLUX_TOKEN>
   response:
@@ -50,11 +50,11 @@ http_interactions:
       x-influxdb-build:
       - OSS
       x-influxdb-version:
-      - v2.8.0
+      - v2.9.1
       date:
-      - Mon, 09 Feb 2026 11:30:12 GMT
+      - Mon, 08 Jun 2026 05:32:26 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Mon, 09 Feb 2026 11:30:12 GMT
+  recorded_at: Mon, 08 Jun 2026 05:32:26 GMT
 recorded_with: VCR 6.4.0

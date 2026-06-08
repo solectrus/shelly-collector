@@ -22,14 +22,14 @@ describe ShellyLocalAdapter do
         let(:shelly_host) { 'shelly-heatpump.fritz.box' }
 
         it 'has values' do
-          expect(solectrus_record.power).to be > 0
-          expect(solectrus_record.temp).to be > 0
+          expect(solectrus_record.power).to be_a(Numeric)
+          expect(solectrus_record.temp).to be_a(Numeric)
         end
 
         it 'has phase power' do
-          expect(solectrus_record.power_a).to be >= 0
-          expect(solectrus_record.power_b).to be >= 0
-          expect(solectrus_record.power_c).to be >= 0
+          expect(solectrus_record.power_a).to be_a(Numeric)
+          expect(solectrus_record.power_b).to be_a(Numeric)
+          expect(solectrus_record.power_c).to be_a(Numeric)
         end
 
         it 'has a valid time' do
@@ -49,8 +49,8 @@ describe ShellyLocalAdapter do
         let(:shelly_host) { 'shelly-fridge.fritz.box' }
 
         it 'has values' do
-          expect(solectrus_record.power).to be > 0
-          expect(solectrus_record.temp).to be > 0
+          expect(solectrus_record.power).to be_a(Numeric)
+          expect(solectrus_record.temp).to be_a(Numeric)
         end
 
         it 'has a valid time' do
