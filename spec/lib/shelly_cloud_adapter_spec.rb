@@ -24,6 +24,10 @@ describe ShellyCloudAdapter do
     describe '#solectrus_record', vcr: 'shelly-cloud' do
       subject(:solectrus_record) { adapter.solectrus_record }
 
+      # Cassette reports ts: 1780895614.63 - pretend "now" is right after it,
+      # so the freshness guard treats the recorded data as current.
+      before { allow(Time).to receive(:now).and_return(Time.at(1_780_895_620)) }
+
       it { is_expected.to be_a(SolectrusRecord) }
 
       it 'has an automatic id' do
@@ -43,7 +47,7 @@ describe ShellyCloudAdapter do
 
       it 'prefers cloud timestamp (ts) over device sys.unixtime' do
         # V1 cassette has ts: 1780895614.63 and sys.unixtime: 1780894706
-        expect(solectrus_record.time).to eq(1_780_895_614)
+        expect(solectrus_record.device_time).to eq(1_780_895_614)
       end
 
       it 'handles errors' do
@@ -59,6 +63,10 @@ describe ShellyCloudAdapter do
     around do |example|
       VCR.turned_off { example.run }
     end
+
+    # Mock status carries unixtime: 1_770_264_642 - pretend "now" is right after
+    # it, so the freshness guard treats the mocked data as current.
+    before { allow(Time).to receive(:now).and_return(Time.at(1_770_264_650)) }
 
     let(:config) do
       Config.new(
@@ -135,9 +143,9 @@ describe ShellyCloudAdapter do
         expect(records[1].temp).to eq(35.1)
       end
 
-      it 'uses sys.unixtime as timestamp' do
+      it 'uses sys.unixtime as device_time' do
         records.each do |record|
-          expect(record.time).to eq(1_770_264_642)
+          expect(record.device_time).to eq(1_770_264_642)
         end
       end
 
@@ -182,6 +190,22 @@ describe ShellyCloudAdapter do
         expect(records.size).to eq(1)
         expect(records[0].measurement).to eq('meter_b')
         expect(logger.warn_messages).to include(/device_aaa is offline/)
+      end
+    end
+
+    describe 'stale device handling' do
+      before do
+        stub_request(:post, 'https://shelly-42-eu.shelly.cloud/v2/devices/api/get?auth_key=abcsecret')
+          .to_return(status: 200, body: batch_response.to_json, headers: { 'Content-Type' => 'application/json' })
+
+        # Move "now" far past the cached status (1_770_264_642) so it is stale.
+        allow(Time).to receive(:now).and_return(Time.at(1_770_264_642 + 3600))
+      end
+
+      it 'skips online devices whose cached data is too old' do
+        records = adapter.solectrus_records
+        expect(records).to be_empty
+        expect(logger.warn_messages).to include(/data is stale/)
       end
     end
 

@@ -8,7 +8,14 @@ class ShellyResponseParser
   attr_reader :data, :invert_power
 
   def solectrus_record(id: 1, response_duration: nil, measurement: nil)
-    SolectrusRecord.new(id:, mac:, time:, payload: record_hash.merge(response_duration:), measurement:)
+    SolectrusRecord.new(
+      id:,
+      mac:,
+      time: Time.now.to_i,
+      device_time:,
+      payload: record_hash.merge(response_duration:),
+      measurement:,
+    )
   end
 
   private
@@ -31,17 +38,25 @@ class ShellyResponseParser
       device_status&.dig('sys', 'mac')
   end
 
-  def time
+  # When the device (or cloud cache) last reported. Only used for staleness
+  # detection - the record's point time is the collection time. May be nil
+  # when the response carries no usable timestamp.
+  def device_time
     (
-      data['unixtime'] ||
+      cloud_timestamp ||
+        data['unixtime'] ||
         data.dig('sys', 'unixtime') ||
-        device_status_time ||
-        Time.now
-    ).to_i
+        device_status&.dig('sys', 'unixtime')
+    )&.to_i
   end
 
-  def device_status_time
-    device_status&.[]('ts') || device_status&.dig('sys', 'unixtime')
+  # The cloud-side status timestamp (`ts`) reflects when the device last
+  # reported to the cloud. It is fresher than the device's `sys.unixtime`,
+  # which lives in a separate sub-object and only refreshes on a full status
+  # update - on partial updates it can lag many minutes behind. Prefer `ts`
+  # so V1 (device_status.ts) and V2 (root ts) use the same, freshest source.
+  def cloud_timestamp
+    data['ts'] || device_status&.[]('ts')
   end
 
   def temp

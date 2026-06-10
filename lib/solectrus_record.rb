@@ -1,14 +1,17 @@
 class SolectrusRecord
-  def initialize(id:, time:, payload:, mac: nil, response_duration: nil, measurement: nil) # rubocop:disable Metrics/ParameterLists
+  # time: when the record was collected (used as InfluxDB point time)
+  # device_time: when the device (or cloud cache) last reported (used for staleness detection)
+  def initialize(id:, time:, payload:, mac: nil, device_time: nil, response_duration: nil, measurement: nil) # rubocop:disable Metrics/ParameterLists
     @id = id
     @time = time
+    @device_time = device_time
     @payload = payload
     @mac = mac
     @response_duration = response_duration
     @measurement = measurement
   end
 
-  attr_reader :id, :time, :mac, :measurement
+  attr_reader :id, :time, :device_time, :mac, :measurement
 
   %i[
     temp

@@ -185,6 +185,44 @@ describe ShellyResponseParser do
     end
   end
 
+  describe 'device_time source' do
+    subject(:solectrus_record) { parser.solectrus_record }
+
+    context 'when a V2 status carries both ts and a lagging sys.unixtime' do
+      let(:json) do
+        {
+          'ts' => 1_780_895_614,
+          'sys' => { 'unixtime' => 1_780_894_706 },
+          'switch:0' => { 'apower' => 10.0 },
+        }.to_json
+      end
+
+      it 'prefers the fresher cloud ts over sys.unixtime' do
+        expect(solectrus_record.device_time).to eq(1_780_895_614)
+      end
+    end
+
+    context 'when only sys.unixtime is present' do
+      let(:json) do
+        { 'sys' => { 'unixtime' => 1_780_894_706 }, 'switch:0' => { 'apower' => 10.0 } }.to_json
+      end
+
+      it 'falls back to sys.unixtime' do
+        expect(solectrus_record.device_time).to eq(1_780_894_706)
+      end
+    end
+
+    context 'when no timestamp is present' do
+      let(:json) do
+        { 'switch:0' => { 'apower' => 10.0 } }.to_json
+      end
+
+      it 'has no device_time' do
+        expect(solectrus_record.device_time).to be_nil
+      end
+    end
+  end
+
   describe 'power inversion' do
     let(:json) { read_json('shelly-plug-s-gen1') }
 

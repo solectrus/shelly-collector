@@ -14,6 +14,13 @@ class ShellyCloudAdapter
 
   BATCH_SIZE = 10
 
+  # The Shelly Cloud reports a device as online while still serving the last
+  # cached status. If that status is older than this, the device has stopped
+  # reporting (lost connection): skip it instead of writing a stale value with
+  # the current timestamp. Generous on purpose - healthy devices report only on
+  # change and may legitimately stay quiet for a while.
+  STALE_AFTER = 5 * 60 # seconds
+
   def initialize(config:)
     @config = config
   end
@@ -59,7 +66,8 @@ class ShellyCloudAdapter
     response = fetch_v1(device_config)
     duration = (response.env[:duration] * 1000).round
     parser = ShellyResponseParser.new(response.body, invert_power: device_config.invert_power)
-    [parser.solectrus_record(id:, response_duration: duration, measurement: device_config.measurement)]
+    record = parser.solectrus_record(id:, response_duration: duration, measurement: device_config.measurement)
+    fresh?(record, device_config) ? [record] : []
   end
 
   def fetch_v1(device_config)
@@ -104,7 +112,8 @@ class ShellyCloudAdapter
       device_data['status'].to_json,
       invert_power: device_config.invert_power,
     )
-    parser.solectrus_record(id:, response_duration: duration, measurement: device_config.measurement)
+    record = parser.solectrus_record(id:, response_duration: duration, measurement: device_config.measurement)
+    record if fresh?(record, device_config)
   end
 
   def find_online_device(body, device_config)
@@ -121,6 +130,20 @@ class ShellyCloudAdapter
     end
 
     device_data
+  end
+
+  # Reject records whose data is older than STALE_AFTER. The cloud can report a
+  # device as online while serving a cached status from hours ago; writing that
+  # value with the collection timestamp would fabricate data. Without a device
+  # timestamp the age is unknown - accept the record.
+  def fresh?(record, device_config)
+    return true unless record.device_time
+
+    age = record.time - record.device_time
+    return true if age <= STALE_AFTER
+
+    logger.warn "Device #{device_config.device_id} data is stale (#{age}s old), skipping"
+    false
   end
 
   def fetch_v2(batch)

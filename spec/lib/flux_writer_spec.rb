@@ -40,7 +40,7 @@ describe FluxWriter do
     context 'when power data type is Float' do
       let(:power_data_type) { 'Float' }
 
-      it 'includes the correct measurement name and timestamp' do
+      it 'includes the correct measurement name and the record time' do
         result = flux_writer.send(:line_protocol, record)
 
         expect(result).to start_with('test_measurement ')

@@ -28,6 +28,12 @@ class FluxWriter
   def line_protocol(record)
     fields = build_fields(record)
     measurement = record.measurement || config.influx_measurement
+    # record.time is the collection time, stamped when the record was created.
+    # This must NOT be replaced by Time.now: records can sit in the queue for a
+    # while (InfluxDB outage, retries), and stamping at write time would collapse
+    # the whole backlog onto one timestamp. The device timestamp (device_time) is
+    # never written either - the Shelly Cloud serves cached status that can be
+    # minutes to hours old, which would repeatedly overwrite the same point.
     "#{measurement} #{format_fields(fields)} #{record.time}"
   end
 
