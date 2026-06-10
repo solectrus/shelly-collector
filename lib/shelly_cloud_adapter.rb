@@ -64,10 +64,21 @@ class ShellyCloudAdapter
   def fetch_single(id)
     device_config = config.device_configs.first
     response = fetch_v1(device_config)
+    return [] if offline_v1?(response, device_config)
+
     duration = (response.env[:duration] * 1000).round
     parser = ShellyResponseParser.new(response.body, invert_power: device_config.invert_power)
     record = parser.solectrus_record(id:, response_duration: duration, measurement: device_config.measurement)
     fresh?(record, device_config) ? [record] : []
+  end
+
+  # Only skip on an explicit `online: false` - responses without the flag
+  # should not be discarded.
+  def offline_v1?(response, device_config)
+    return false unless JSON.parse(response.body).dig('data', 'online') == false
+
+    logger.warn "Device #{device_config.device_id} is offline"
+    true
   end
 
   def fetch_v1(device_config)

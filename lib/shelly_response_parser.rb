@@ -40,14 +40,15 @@ class ShellyResponseParser
 
   # When the device (or cloud cache) last reported. Only used for staleness
   # detection - the record's point time is the collection time. May be nil
-  # when the response carries no usable timestamp.
+  # when the response carries no usable timestamp. Gen1 devices without NTP
+  # sync report unixtime 0 - treat that as missing, not as 1970.
   def device_time
-    (
-      cloud_timestamp ||
-        data['unixtime'] ||
-        data.dig('sys', 'unixtime') ||
-        device_status&.dig('sys', 'unixtime')
-    )&.to_i
+    [
+      cloud_timestamp,
+      data['unixtime'],
+      data.dig('sys', 'unixtime'),
+      device_status&.dig('sys', 'unixtime'),
+    ].compact.map(&:to_i).find(&:positive?)
   end
 
   # The cloud-side status timestamp (`ts`) reflects when the device last

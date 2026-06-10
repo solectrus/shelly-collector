@@ -221,6 +221,16 @@ describe ShellyResponseParser do
         expect(solectrus_record.device_time).to be_nil
       end
     end
+
+    context 'when a Gen1 device without NTP sync reports unixtime 0' do
+      let(:json) do
+        { 'unixtime' => 0, 'meters' => [{ 'power' => 10.0 }] }.to_json
+      end
+
+      it 'treats unixtime 0 as missing' do
+        expect(solectrus_record.device_time).to be_nil
+      end
+    end
   end
 
   describe 'power inversion' do

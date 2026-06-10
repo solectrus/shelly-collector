@@ -57,6 +57,41 @@ describe ShellyCloudAdapter do
         expect(logger.error_messages).to include(/Error getting data from Shelly Cloud/)
       end
     end
+
+    describe 'offline device handling' do
+      around do |example|
+        VCR.turned_off { example.run }
+      end
+
+      let(:config) do
+        Config.new(
+          shelly_cloud_server: 'https://shelly-42-eu.shelly.cloud',
+          shelly_auth_key: 'abcsecret',
+          shelly_device_id: '1234567890',
+          influx_host: 'localhost',
+          influx_token: 'my-token',
+          influx_org: 'my-org',
+          influx_bucket: 'my-bucket',
+          influx_measurement: 'meter_a',
+        )
+      end
+
+      before do
+        stub_request(:get, 'https://shelly-42-eu.shelly.cloud/device/status')
+          .with(query: { 'id' => '1234567890', 'auth_key' => 'abcsecret' })
+          .to_return(
+            status: 200,
+            body: { isok: true, data: { online: false, device_status: {} } }.to_json,
+            headers: { 'Content-Type' => 'application/json' },
+          )
+      end
+
+      it 'skips the offline device' do
+        records = adapter.solectrus_records
+        expect(records).to be_empty
+        expect(logger.warn_messages).to include(/1234567890 is offline/)
+      end
+    end
   end
 
   context 'with multiple devices (V2 API)' do
