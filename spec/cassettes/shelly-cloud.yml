@@ -17,11 +17,11 @@ http_interactions:
       server:
       - nginx/1.18.0 (Ubuntu)
       date:
-      - Mon, 08 Jun 2026 05:13:52 GMT
+      - Wed, 10 Jun 2026 09:42:35 GMT
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '1600'
+      - '1589'
       connection:
       - keep-alive
       x-powered-by:
@@ -29,10 +29,10 @@ http_interactions:
       access-control-allow-origin:
       - "*"
       etag:
-      - W/"640-ydE4FGeCRZJsDiE7rf5LGr6XyiM"
+      - W/"635-vDML9QuoQgRBnx7281xGyjBPsLc"
     body:
       encoding: UTF-8
-      string: '{"isok":true,"data":{"online":true,"device_status":{"serial":8714,"ws":{"connected":false},"id":"<SHELLY_DEVICE_ID>","emdata:0":{"a_total_act_energy":2107587.51,"a_total_act_ret_energy":1.31,"b_total_act_energy":1874724.32,"b_total_act_ret_energy":0.01,"c_total_act_energy":1567897.47,"c_total_act_ret_energy":11040.86,"total_act":5550209.29,"total_act_ret":11042.19,"id":0},"cloud":{"connected":true},"bthome":{"errors":["bluetooth_disabled"]},"code":"SPEM-003CEBEU","_updated":"2026-06-08
-        05:13:48","em:0":{"a_act_power":13.9,"a_aprt_power":141.6,"a_current":0.606,"a_freq":50,"a_pf":0.1,"a_voltage":233.8,"b_act_power":4.7,"b_aprt_power":152,"b_current":0.649,"b_freq":50,"b_pf":0.03,"b_voltage":234.3,"c_act_power":-1.3,"c_aprt_power":144.6,"c_current":0.618,"c_freq":50,"c_pf":0.01,"c_voltage":234.1,"total_act_power":17.344,"total_aprt_power":438.178,"total_current":1.873,"id":0,"user_calibrated_phase":[]},"modbus":{},"sys":{"time":"06:58","unixtime":1780894706,"mac":"34987A45A6A0","restart_required":false,"last_sync_ts":1780894706,"uptime":5303790,"ram_size":244276,"ram_free":99100,"ram_min_free":76588,"fs_size":524288,"fs_free":192512,"cfg_rev":49,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":3,"utc_offset":7200},"ble":{},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ts":1780895614.63,"temperature:0":{"id":0,"tC":45.8,"tF":114.5},"mqtt":{"connected":true},"eth":{"ip":"192.168.178.54","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]}}}}'
-  recorded_at: Mon, 08 Jun 2026 05:13:52 GMT
+      string: '{"isok":true,"data":{"online":true,"device_status":{"serial":10103,"ws":{"connected":false},"id":"<SHELLY_DEVICE_ID>","emdata:0":{"a_total_act_energy":2109290.68,"a_total_act_ret_energy":1.32,"b_total_act_energy":1875946.69,"b_total_act_ret_energy":0.01,"c_total_act_energy":1568811.91,"c_total_act_ret_energy":11096.39,"total_act":5554049.28,"total_act_ret":11097.71,"id":0},"cloud":{"connected":true},"bthome":{"errors":["bluetooth_disabled"]},"code":"SPEM-003CEBEU","_updated":"2026-06-10
+        09:42:29","em:0":{"a_act_power":13.2,"a_aprt_power":143.7,"a_current":0.61,"a_freq":50,"a_pf":0.1,"a_voltage":235.5,"b_act_power":5,"b_aprt_power":153,"b_current":0.651,"b_freq":50,"b_pf":0.04,"b_voltage":235.2,"c_act_power":0,"c_aprt_power":145.2,"c_current":0.619,"c_freq":50,"c_pf":0,"c_voltage":234.6,"total_act_power":18.185,"total_aprt_power":441.896,"total_current":1.88,"id":0,"user_calibrated_phase":[]},"modbus":{},"sys":{"time":"11:12","unixtime":1781082735,"mac":"34987A45A6A0","restart_required":false,"last_sync_ts":1781082735,"uptime":5473076,"ram_size":244268,"ram_free":98624,"ram_min_free":76588,"fs_size":524288,"fs_free":192512,"cfg_rev":49,"kvs_rev":2,"schedule_rev":0,"webhook_rev":2,"btrelay_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":3,"utc_offset":7200},"ble":{},"wifi":{"sta_ip":null,"status":"disconnected","ssid":null,"rssi":0,"sta_ip6":null},"ts":1781084534.02,"temperature:0":{"id":0,"tC":46,"tF":114.8},"mqtt":{"connected":true},"eth":{"ip":"192.168.178.54","ip6":["fe80::3698:7aff:fe45:a6a3","fd75:70e:4c3a:4c69:3698:7aff:fe45:a6a3"]}}}}'
+  recorded_at: Mon, 08 Jun 2026 05:13:40 GMT
 recorded_with: VCR 6.4.0

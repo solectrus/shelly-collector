@@ -24,9 +24,9 @@ describe ShellyCloudAdapter do
     describe '#solectrus_record', vcr: 'shelly-cloud' do
       subject(:solectrus_record) { adapter.solectrus_record }
 
-      # Cassette reports ts: 1780895614.63 - pretend "now" is right after it,
+      # Cassette reports ts: 1781084534.02 - pretend "now" is right after it,
       # so the freshness guard treats the recorded data as current.
-      before { allow(Time).to receive(:now).and_return(Time.at(1_780_895_620)) }
+      before { allow(Time).to receive(:now).and_return(Time.at(1_781_084_540)) }
 
       it { is_expected.to be_a(SolectrusRecord) }
 
@@ -46,8 +46,8 @@ describe ShellyCloudAdapter do
       end
 
       it 'prefers cloud timestamp (ts) over device sys.unixtime' do
-        # V1 cassette has ts: 1780895614.63 and sys.unixtime: 1780894706
-        expect(solectrus_record.device_time).to eq(1_780_895_614)
+        # V1 cassette has ts: 1781084534.02 and sys.unixtime: 1781082735
+        expect(solectrus_record.device_time).to eq(1_781_084_534)
       end
 
       it 'handles errors' do

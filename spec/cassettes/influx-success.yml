@@ -5,8 +5,8 @@ http_interactions:
     uri: http://<INFLUX_HOST>:8086/api/v2/write?bucket=<INFLUX_BUCKET>&org=<INFLUX_ORG>&precision=s
     body:
       encoding: UTF-8
-      string: my-shelly-measurement temp=46.2,power=16.2,power_a=13.2,power_b=4.2,power_c=-1.2,response_duration=0i
-        1780896508
+      string: my-shelly-measurement temp=43.4,power=17.092,power_a=13.3,power_b=5.0,power_c=-1.2,response_duration=0i
+        1781084599
     headers:
       User-Agent:
       - Faraday v2.14.2
@@ -24,11 +24,11 @@ http_interactions:
       x-influxdb-version:
       - v2.9.1
       date:
-      - Mon, 08 Jun 2026 05:32:11 GMT
+      - Wed, 10 Jun 2026 09:43:19 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Mon, 08 Jun 2026 05:32:11 GMT
+  recorded_at: Wed, 10 Jun 2026 09:43:19 GMT
 - request:
     method: get
     uri: http://<INFLUX_HOST>:8086/ping
@@ -52,9 +52,9 @@ http_interactions:
       x-influxdb-version:
       - v2.9.1
       date:
-      - Mon, 08 Jun 2026 05:32:26 GMT
+      - Wed, 10 Jun 2026 09:43:21 GMT
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Mon, 08 Jun 2026 05:32:26 GMT
+  recorded_at: Wed, 10 Jun 2026 09:43:21 GMT
 recorded_with: VCR 6.4.0
