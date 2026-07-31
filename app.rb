@@ -9,11 +9,12 @@ require 'dotenv/load'
 require 'loop'
 require 'config'
 require 'stdout_logger'
+require 'app_version'
 
 logger = StdoutLogger.new
 
 logger.info 'Shelly collector for SOLECTRUS, ' \
-       "Version #{ENV.fetch('VERSION', '<unknown>')}, " \
+       "Version #{AppVersion.current || '<unknown>'}, " \
        "built at #{ENV.fetch('BUILDTIME', '<unknown>')}"
 logger.info 'https://github.com/solectrus/shelly-collector'
 logger.info 'Copyright (c) 2024-2026 Georg Ledermann, released under the MIT License'
