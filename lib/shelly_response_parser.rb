@@ -74,7 +74,7 @@ class ShellyResponseParser
       data.dig('pm1:0', 'apower') ||
       data.dig('em:0', 'total_act_power') ||
       device_status&.dig('em:0', 'total_act_power') ||
-      phases_total
+      channels_total
   end
 
   def power
@@ -82,7 +82,7 @@ class ShellyResponseParser
     raw && invert_power ? -raw : raw
   end
 
-  def phases_total
+  def channels_total
     power_a.to_f + power_b.to_f + power_c.to_f + power_d.to_f
   end
 
