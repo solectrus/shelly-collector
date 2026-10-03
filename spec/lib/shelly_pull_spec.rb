@@ -36,6 +36,28 @@ describe ShellyPull do
       end
     end
 
+    context 'when the buffer is full' do
+      before do
+        stub_const('ShellyPull::MAX_QUEUE_SIZE', 2)
+        allow(config.adapter).to receive(:solectrus_records) do |id|
+          [SolectrusRecord.new(id:, time: id, payload: { power: 1 })]
+        end
+      end
+
+      it 'drops the oldest record' do
+        3.times { shelly_pull.next }
+
+        expect(queue.length).to eq(2)
+        expect(queue.pop.id).to eq(2)
+      end
+
+      it 'logs only once' do
+        4.times { shelly_pull.next }
+
+        expect(logger.error_messages.grep(/Buffer is full/).size).to eq(1)
+      end
+    end
+
     context 'when queue raises an error' do
       it 'raises an exception and does not increment queue length' do
         record = SolectrusRecord.new(id: 1, time: 1, payload: { power: 1 })

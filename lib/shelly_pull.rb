@@ -1,4 +1,9 @@
 class ShellyPull
+  # Maximum number of records to buffer while InfluxDB is not reachable.
+  # One record needs about 0.5 KB of memory, so the buffer is limited to about 250 MB.
+  # With one device at the minimum interval of 5 seconds this covers about 4 weeks.
+  MAX_QUEUE_SIZE = 500_000
+
   def initialize(config:, queue:)
     @queue = queue
     @config = config
@@ -30,15 +35,35 @@ class ShellyPull
       last = @last_records[key]
 
       if should_queue?(record, last)
-        queue << record
+        enqueue(record)
       else
         skipped << record.measurement
       end
-      queue << last if should_queue_last_record?(record, last)
+      enqueue(last) if should_queue_last_record?(record, last)
 
       @last_records[key] = record
     end
     skipped
+  end
+
+  def enqueue(record)
+    make_room
+    queue << record
+  end
+
+  # Drop the oldest record if the buffer is full
+  def make_room
+    @buffer_full = false if queue.empty?
+    return if queue.size < MAX_QUEUE_SIZE
+
+    queue.pop(true)
+    return if @buffer_full
+
+    # Log once per outage only
+    @buffer_full = true
+    config.logger.error "Buffer is full (#{MAX_QUEUE_SIZE} records), dropping oldest records"
+  rescue ThreadError
+    # Queue has been emptied by the push thread in the meantime
   end
 
   def log_batch_results(skipped)
