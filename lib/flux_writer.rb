@@ -14,12 +14,12 @@ class FluxWriter
     false
   end
 
-  def push(record)
-    return unless record
+  def push(records)
+    return if records.empty?
 
     connection.post(write_path) do |req|
       req.headers['Content-Type'] = 'text/plain'
-      req.body = line_protocol(record)
+      req.body = records.map { |record| line_protocol(record) }.join("\n")
     end
   end
 

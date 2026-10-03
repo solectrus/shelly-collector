@@ -4,13 +4,19 @@ require 'forwardable'
 class InfluxPush
   extend Forwardable
 
+  # Maximum number of records to push in one request
+  BATCH_SIZE = 1000
+
+  # Errors (HTTP 400 and 422) for data that InfluxDB will never accept (e.g. field type conflict).
+  # Retrying such records would block all other records.
+  REJECTED_ERRORS = [Faraday::BadRequestError, Faraday::UnprocessableContentError].freeze
+
   def_delegators :config, :logger
 
   def initialize(config:, queue:)
     @config = config
     @queue = queue
     @flux_writer = FluxWriter.new(config)
-    @pushed = []
   end
 
   attr_reader :config, :queue, :flux_writer
@@ -26,59 +32,80 @@ class InfluxPush
 
   def run
     until queue.closed?
-      # Wait for a record to be added to the queue
-      record = queue.pop
+      records = next_batch
 
       # Push (unless queue has been closed)
-      push(record) if record
+      push(records) if records.any?
     end
   end
 
   private
 
-  def push(record)
-    flux_writer.push(record)
-    @pushed << record
-    log_push_summary if queue.empty?
-    log_recovery if @failing_since
-  rescue StandardError => e
-    log_push_summary
-    error_handling(record, e)
+  def next_batch
+    # Wait for a record to be added to the queue (nil if the queue has been closed)
+    record = queue.pop
+    return [] unless record
 
-    # Wait a bit before trying again
-    sleep(5)
-  end
-
-  def log_push_summary
-    return if @pushed.empty?
-
-    if @pushed.size == 1
-      logger.info "Successfully pushed record ##{@pushed.first.id}#{measurement_suffix} to InfluxDB"
-    else
-      logger.info "Successfully pushed #{@pushed.size} points for ##{@pushed.first.id} to InfluxDB"
+    # Add more records if available (e.g. other devices or buffered during an outage)
+    records = [record]
+    while records.size < BATCH_SIZE && (record = queue.pop(timeout: 0))
+      records << record
     end
-
-    @pushed = []
+    records
   end
 
-  def measurement_suffix
-    return unless config.multi_device?
-
-    " for #{@pushed.first.measurement || config.influx_measurement}"
+  def push(records)
+    flux_writer.push(records)
+    logger.info "Successfully pushed #{description(records)} to InfluxDB"
+    log_recovery if @failing_since
+  rescue *REJECTED_ERRORS => e
+    drop_rejected(records, e)
+  rescue StandardError => e
+    retry_later(records, e)
   end
 
-  def error_handling(record, error)
+  # Push the records one by one to drop the rejected ones only
+  def drop_rejected(records, error)
+    if records.one?
+      logger.error "InfluxDB rejected #{description(records)}, dropping it: #{error.message}"
+    else
+      records.each { |record| push([record]) }
+    end
+  end
+
+  def retry_later(records, error)
     # Log the first failure only, so a long outage does not flood the log
     unless @failing_since
       @failing_since = Time.now
-      logger.error "Error while pushing record ##{record.id} to InfluxDB: #{error.message}"
+      logger.error "Error while pushing #{description(records)} to InfluxDB: #{error.message}"
       logger.error 'Records will be buffered and pushed when InfluxDB is available again.'
     end
 
     return if queue.closed?
 
-    # Put the record back into the queue
-    queue << record
+    # Put the records back into the queue
+    records.each { |record| queue << record }
+
+    # Wait a bit before trying again
+    sleep(5)
+  end
+
+  def description(records)
+    first = records.first
+
+    if records.one?
+      "record ##{first.id}#{measurement_suffix(first)}"
+    elsif records.all? { |record| record.id == first.id }
+      "#{records.size} points for ##{first.id}"
+    else
+      "#{records.size} records"
+    end
+  end
+
+  def measurement_suffix(record)
+    return unless config.multi_device?
+
+    " for #{record.measurement || config.influx_measurement}"
   end
 
   def log_recovery

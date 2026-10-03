@@ -21,6 +21,40 @@ describe FluxWriter do
   let(:power_data_type) { 'Float' }
   let(:flux_writer) { described_class.new(config) }
 
+  describe '#push' do
+    let(:config) do
+      cfg = instance_double(
+        Config,
+        influx_url: 'http://localhost:8086',
+        influx_token: 'token',
+        influx_bucket: 'test_bucket',
+        influx_org: 'test_org',
+        influx_measurement: 'test_measurement',
+      )
+      allow(cfg).to receive(:device_config_for).and_return(device_config)
+      cfg
+    end
+
+    let(:records) do
+      [1, 2].map do |id|
+        SolectrusRecord.new(id:, time: 1_700_000_000 + id, payload: { power: 42.7 })
+      end
+    end
+
+    it 'writes all records in one request' do
+      request = stub_request(:post, %r{localhost:8086/api/v2/write})
+                .with(body: "test_measurement power=42.7 1700000001\ntest_measurement power=42.7 1700000002")
+
+      VCR.turned_off { flux_writer.push(records) }
+
+      expect(request).to have_been_made.once
+    end
+
+    it 'does nothing without records' do
+      expect(flux_writer.push([])).to be_nil
+    end
+  end
+
   describe '#line_protocol' do
     let(:record) do
       SolectrusRecord.new(
