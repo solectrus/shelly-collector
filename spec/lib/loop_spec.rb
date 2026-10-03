@@ -20,6 +20,20 @@ describe Loop do
       expect(logger.success_messages).to include(/Power/)
     end
 
+    it 'starts collecting even if InfluxDB is not ready at startup' do
+      allow_any_instance_of(FluxWriter).to receive(:ready?).and_return(false) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(described_class).to receive(:sleep) # rubocop:disable RSpec/AnyInstance
+
+      VCR.use_cassette('influx-success') do
+        VCR.use_cassette('shelly-pro-3em') do
+          described_class.start(config:, max_count: 2, max_wait: 2)
+        end
+      end
+
+      expect(logger.error_messages).to include(/InfluxDB not ready after 10 seconds, records will be buffered/)
+      expect(logger.info_messages).to include(/Successfully pushed/)
+    end
+
     it 'handles Interrupt' do
       allow(config.adapter).to receive(:solectrus_records).and_raise(SystemExit)
 

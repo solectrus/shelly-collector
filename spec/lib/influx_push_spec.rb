@@ -48,6 +48,35 @@ describe InfluxPush do
         end
       end
     end
+
+    context 'when InfluxDB recovers' do
+      before do
+        fill_queue(2)
+
+        allow(FluxWriter).to receive(:new).and_return(RecoveringFluxWriter.new)
+      end
+
+      it 'pushes buffered records and logs the failure only once' do
+        pusher = described_class.new(config:, queue:)
+        allow(pusher).to receive(:sleep)
+
+        run_until_pushed(pusher)
+
+        expect(logger.error_messages.grep(/Error while pushing/).size).to eq(1)
+        expect(logger.info_messages).to include(/InfluxDB is available again/)
+      end
+
+      it 'does not log the failure if InfluxDB is already known to be unavailable' do
+        pusher = described_class.new(config:, queue:)
+        allow(pusher).to receive(:sleep)
+        pusher.mark_unavailable
+
+        run_until_pushed(pusher)
+
+        expect(logger.error_messages).to be_empty
+        expect(logger.info_messages).to include(/InfluxDB is available again/)
+      end
+    end
   end
 
   # Helper methods
@@ -67,6 +96,13 @@ describe InfluxPush do
     end
 
     Timeout.timeout(1) { loop until queue.empty? }
+    queue.close
+    thread.join
+  end
+
+  def run_until_pushed(pusher)
+    thread = Thread.new { pusher.run }
+    Timeout.timeout(1) { sleep 0.01 until logger.info_messages.grep(/InfluxDB is available again/).any? }
     queue.close
     thread.join
   end
@@ -92,6 +128,18 @@ end
 
 class FailingFluxWriter
   def push(_record)
+    raise Faraday::ServerError, 'Internal Server Error'
+  end
+end
+
+class RecoveringFluxWriter
+  def initialize
+    @failures = 2
+  end
+
+  def push(_record)
+    return if (@failures -= 1).negative?
+
     raise Faraday::ServerError, 'Internal Server Error'
   end
 end
