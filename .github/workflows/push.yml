@@ -59,6 +59,10 @@ jobs:
 
     runs-on: ${{ matrix.runner }}
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Prepare
         run: |
@@ -93,7 +97,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push by digest
         id: build
@@ -130,6 +134,9 @@ jobs:
     runs-on: ubuntu-24.04
     needs: build
 
+    permissions:
+      packages: write
+
     steps:
       - name: Download digests
         uses: actions/download-artifact@v8
@@ -157,7 +164,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create manifest list and push
         working-directory: /tmp/digests
